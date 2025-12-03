@@ -1,0 +1,76 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pygapevision"
+version = "1.0.0"
+description = "Automated video analysis system for tracking hook gape deformation during mechanical tension tests"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    {name = "Matthew Nakamura", email = "matthew.t.nakamura@gmail.com"}
+]
+license = {text = "GPL-3.0-or-later"}
+keywords = ["computer vision", "video tracking", "mechanical testing", "biomechanics", "opencv"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+
+dependencies = [
+    "opencv-python>=4.10.0",
+    "numpy>=2.0.0",
+    "matplotlib>=3.9.0",
+    "scipy>=1.13.0",
+    "pandas>=2.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "ruff>=0.1.0",
+]
+excel = [
+    "openpyxl>=3.1.0",
+]
+
+[project.scripts]
+pygape-analyze = "scripts.analyze_hook:main"
+pygape-synced = "scripts.analyze_synced:main"
+
+[project.urls]
+Homepage = "https://github.com/yourusername/PyGapeVision"
+Repository = "https://github.com/yourusername/PyGapeVision"
+
+[tool.setuptools]
+packages = ["src"]
+
+[tool.setuptools.package-data]
+src = ["*.py"]
+
+[tool.black]
+line-length = 100
+target-version = ["py38", "py39", "py310", "py311"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+select = ["E", "F", "W", "I", "N", "UP"]
+ignore = ["E501"]  # Line too long (handled by black)
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--verbose --cov=src --cov-report=term-missing"

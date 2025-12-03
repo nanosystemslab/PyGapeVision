@@ -1,0 +1,157 @@
+# PyGapeVision - Git Ignore
+# Only track source code, exclude data and results
+
+# =============================================================================
+# Data and Results (DO NOT TRACK)
+# =============================================================================
+data/
+results/
+output/
+batch_results/
+
+
+# =============================================================================
+# Python Virtual Environments
+# =============================================================================
+venv/
+env/
+ENV/
+.venv/
+.env/
+*.pyenv
+.python-version
+
+# pyenv
+.python-version
+
+# =============================================================================
+# Python Cache and Bytecode
+# =============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# =============================================================================
+# Testing and Coverage
+# =============================================================================
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+
+# =============================================================================
+# Jupyter Notebooks
+# =============================================================================
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# =============================================================================
+# IDE and Editor Files
+# =============================================================================
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# =============================================================================
+# OS Files
+# =============================================================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# =============================================================================
+# Logs and Temporary Files
+# =============================================================================
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Processing logs
+*_processing.log
+
+# =============================================================================
+# Project Specific
+# =============================================================================
+# Calibration results (optional - uncomment to track calibration files)
+# results/calibration/
+
+# Temporary analysis outputs
+*.mp4.tmp
+*.csv.tmp
+
+# Cache directories
+.cache/
+*.cache/
+
+# =============================================================================
+# Documentation Build (if using Sphinx)
+# =============================================================================
+docs/_build/
+docs/.doctrees/
+
+# =============================================================================
+# mypy
+# =============================================================================
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# =============================================================================
+# Other
+# =============================================================================
+# Backup files
+*.bak
+*.backup
+
+# Environment variables
+.env
+.env.local
+.env.*.local

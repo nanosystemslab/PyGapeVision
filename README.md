@@ -66,6 +66,10 @@ For Excel export support:
 pip install -e ".[excel]"
 ```
 
+### Docker (Optional)
+
+If you prefer a containerized setup, see `docs/DOCKER.md` for build and run commands.
+
 ## Quick Start
 
 ### Single Video Analysis

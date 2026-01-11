@@ -12,7 +12,18 @@ class GreenPointTracker:
     """Track green-painted points on a hook during tension testing."""
 
     def __init__(self, hsv_lower=(35, 100, 50), hsv_upper=(55, 255, 255),
-                 use_simple_tracking=False, exclude_right_pixels=0):
+                 use_simple_tracking=False, exclude_right_pixels=0,
+                 min_area=200, max_area=15000, max_x_ratio=0.65,
+                 search_radius=150, validate_tip_edges=True,
+                 min_edge_separation=15, min_contour_area=100,
+                 morph_kernel_size=5,
+                 tip_hsv_lower=None, tip_hsv_upper=None,
+                 tip_roi=None, tip_roi_mode="static", tip_roi_radius=None,
+                 tip_min_area=None, tip_max_area=None,
+                 tip_min_contour_area=None,
+                 tip_morph_kernel_size=None,
+                 tip_exclude_right_pixels=None,
+                 tip_max_x_ratio=None):
         """
         Initialize the tracker.
 
@@ -33,8 +44,40 @@ class GreenPointTracker:
         self.hsv_upper = np.array(hsv_upper)
         self.use_simple_tracking = use_simple_tracking
         self.exclude_right_pixels = exclude_right_pixels
+        self.min_area = min_area
+        self.max_area = max_area
+        self.max_x_ratio = max_x_ratio
+        self.search_radius = search_radius
+        self.validate_tip_edges_enabled = validate_tip_edges
+        self.min_edge_separation = min_edge_separation
+        self.min_contour_area = min_contour_area
+        self.morph_kernel_size = morph_kernel_size
+        self.tip_hsv_lower = np.array(tip_hsv_lower) if tip_hsv_lower is not None else None
+        self.tip_hsv_upper = np.array(tip_hsv_upper) if tip_hsv_upper is not None else None
+        self.tip_roi = tuple(tip_roi) if tip_roi is not None else None
+        self.tip_roi_mode = tip_roi_mode
+        self.tip_roi_radius = tip_roi_radius
+        self.tip_min_area = tip_min_area if tip_min_area is not None else self.min_area
+        self.tip_max_area = tip_max_area if tip_max_area is not None else self.max_area
+        self.tip_min_contour_area = (
+            tip_min_contour_area if tip_min_contour_area is not None else self.min_contour_area
+        )
+        self.tip_morph_kernel_size = (
+            tip_morph_kernel_size if tip_morph_kernel_size is not None else self.morph_kernel_size
+        )
+        self.tip_exclude_right_pixels = (
+            tip_exclude_right_pixels if tip_exclude_right_pixels is not None else self.exclude_right_pixels
+        )
+        self.tip_max_x_ratio = tip_max_x_ratio
 
-    def find_green_regions(self, frame: np.ndarray) -> Tuple[np.ndarray, List[dict]]:
+    def find_green_regions(self, frame: np.ndarray,
+                           hsv_lower: Optional[np.ndarray] = None,
+                           hsv_upper: Optional[np.ndarray] = None,
+                           exclude_right_pixels: Optional[int] = None,
+                           min_contour_area: Optional[int] = None,
+                           morph_kernel_size: Optional[int] = None,
+                           roi: Optional[Tuple[int, int, int, int]] = None
+                           ) -> Tuple[np.ndarray, List[dict]]:
         """
         Find green regions in the frame.
 
@@ -49,15 +92,31 @@ class GreenPointTracker:
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
         # Create mask for green color
-        mask = cv2.inRange(hsv, self.hsv_lower, self.hsv_upper)
+        lower = self.hsv_lower if hsv_lower is None else np.array(hsv_lower)
+        upper = self.hsv_upper if hsv_upper is None else np.array(hsv_upper)
+        mask = cv2.inRange(hsv, lower, upper)
 
         # Exclude right edge if specified (for rulers, overlays, etc.)
-        if self.exclude_right_pixels > 0:
+        right_exclusion = self.exclude_right_pixels if exclude_right_pixels is None else exclude_right_pixels
+        if right_exclusion > 0:
             height, width = mask.shape
-            mask[:, width - self.exclude_right_pixels:] = 0
+            mask[:, width - right_exclusion:] = 0
+
+        if roi is not None:
+            height, width = mask.shape
+            x1, y1, x2, y2 = roi
+            x1 = max(0, min(width - 1, x1))
+            y1 = max(0, min(height - 1, y1))
+            x2 = max(1, min(width, x2))
+            y2 = max(1, min(height, y2))
+            if x2 > x1 and y2 > y1:
+                roi_mask = np.zeros_like(mask)
+                roi_mask[y1:y2, x1:x2] = 255
+                mask = cv2.bitwise_and(mask, roi_mask)
 
         # Apply morphological operations to reduce noise
-        kernel = np.ones((5, 5), np.uint8)
+        kernel_size = self.morph_kernel_size if morph_kernel_size is None else morph_kernel_size
+        kernel = np.ones((kernel_size, kernel_size), np.uint8)
         mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
         mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
 
@@ -66,9 +125,10 @@ class GreenPointTracker:
 
         # Extract contour information
         contours_info = []
+        area_threshold = self.min_contour_area if min_contour_area is None else min_contour_area
         for cnt in contours:
             area = cv2.contourArea(cnt)
-            if area > 100:  # Filter small noise
+            if area > area_threshold:  # Filter small noise
                 M = cv2.moments(cnt)
                 if M['m00'] != 0:
                     cx = int(M['m10'] / M['m00'])
@@ -175,7 +235,9 @@ class GreenPointTracker:
                               prev_shaft: Optional[Tuple[int, int]] = None,
                               prev_tip: Optional[Tuple[int, int]] = None,
                               search_radius: int = 150,
-                              frame: Optional[np.ndarray] = None) -> Tuple[Optional[dict], Optional[dict]]:
+                              frame: Optional[np.ndarray] = None,
+                              tip_contours_info: Optional[List[dict]] = None
+                              ) -> Tuple[Optional[dict], Optional[dict]]:
         """
         Identify which green region is the shaft and which is the tip.
 
@@ -195,40 +257,204 @@ class GreenPointTracker:
             shaft_info: Information about the shaft marker
             tip_info: Information about the tip marker
         """
-        if len(contours_info) < 2:
+        if not contours_info:
             return None, None
 
-        # Simple tracking mode: just use two largest contours
-        if self.use_simple_tracking:
-            # Already sorted by area (largest first)
-            candidates = contours_info[:2]
+        if tip_contours_info is None:
+            if len(contours_info) < 2:
+                return None, None
 
-            # Determine which is shaft (upper) and which is tip (lower) based on y-coordinate
-            if candidates[0]['centroid'][1] < candidates[1]['centroid'][1]:
-                shaft_info = candidates[0]
-                tip_info = candidates[1]
-            else:
-                shaft_info = candidates[1]
-                tip_info = candidates[0]
+            # Simple tracking mode: just use two largest contours
+            if self.use_simple_tracking:
+                # Already sorted by area (largest first)
+                candidates = contours_info[:2]
+
+                # Determine which is shaft (upper) and which is tip (lower) based on y-coordinate
+                if candidates[0]['centroid'][1] < candidates[1]['centroid'][1]:
+                    shaft_info = candidates[0]
+                    tip_info = candidates[1]
+                else:
+                    shaft_info = candidates[1]
+                    tip_info = candidates[0]
+
+                return shaft_info, tip_info
+
+            # Filter candidates based on position and area
+            def _filter_candidates(max_x):
+                return [
+                    c for c in contours_info
+                    if c['centroid'][0] < max_x
+                    and self.min_area < c['area'] < self.max_area
+                ]
+
+            left_boundary = frame_width * self.max_x_ratio
+            valid_candidates = _filter_candidates(left_boundary)
+            if len(valid_candidates) < 2 and self.exclude_right_pixels > 0:
+                relaxed_boundary = frame_width - self.exclude_right_pixels
+                valid_candidates = _filter_candidates(relaxed_boundary)
+            if len(valid_candidates) < 2:
+                valid_candidates = _filter_candidates(frame_width)
+
+            if len(valid_candidates) < 2:
+                return None, None
+
+            # Sort by area
+            valid_candidates.sort(key=lambda x: x['area'], reverse=True)
+
+            # TEMPORAL TRACKING: If we have previous positions, use proximity-based search
+            if prev_shaft is not None and prev_tip is not None:
+                shaft_info = None
+                tip_info = None
+
+                # Find closest region to previous shaft position
+                shaft_candidates_near = []
+                for c in valid_candidates[:20]:
+                    cx, cy = c['centroid']
+                    dist = ((cx - prev_shaft[0])**2 + (cy - prev_shaft[1])**2)**0.5
+                    if dist < search_radius:
+                        shaft_candidates_near.append((dist, c))
+
+                # Find closest region to previous tip position
+                tip_candidates_near = []
+                for c in valid_candidates[:20]:
+                    cx, cy = c['centroid']
+                    dist = ((cx - prev_tip[0])**2 + (cy - prev_tip[1])**2)**0.5
+                    if dist < search_radius:
+                        tip_candidates_near.append((dist, c))
+
+                # Select closest matches
+                if shaft_candidates_near:
+                    shaft_candidates_near.sort(key=lambda x: x[0])  # Sort by distance
+                    shaft_info = shaft_candidates_near[0][1]
+
+                if tip_candidates_near:
+                    tip_candidates_near.sort(key=lambda x: x[0])  # Sort by distance
+                    # Validate tip has two distinct edges before accepting
+                    candidate_tip = tip_candidates_near[0][1]
+                    if (not self.validate_tip_edges_enabled or
+                            self.validate_tip_edges(candidate_tip, frame=frame,
+                                                    min_edge_separation=self.min_edge_separation)):
+                        tip_info = candidate_tip
+
+                # If both found via temporal tracking, return them
+                if shaft_info and tip_info:
+                    return shaft_info, tip_info
+
+            # INITIAL DETECTION or RECOVERY: Use spatial zones
+            shaft_candidates = []
+            tip_candidates = []
+
+            for c in valid_candidates[:15]:
+                cx, cy = c['centroid']
+
+                # Shaft region: upper-middle area (initial: ~724, 460)
+                if 380 < cy < 520 and 620 < cx < 850:
+                    shaft_candidates.append(c)
+
+                # Tip region: lower-right (initial: ~902, 707)
+                if 650 < cy < 800 and 800 < cx < 1000:
+                    # Validate tip has two distinct edges at boundary
+                    if (not self.validate_tip_edges_enabled or
+                            self.validate_tip_edges(c, frame=frame,
+                                                    min_edge_separation=self.min_edge_separation)):
+                        tip_candidates.append(c)
+
+            # Select largest from each category
+            shaft_info = shaft_candidates[0] if shaft_candidates else None
+            tip_info = tip_candidates[0] if tip_candidates else None
+
+            # Fallback
+            if not shaft_info or not tip_info:
+                if len(valid_candidates) >= 2:
+                    candidates = valid_candidates[:2]
+                    # Determine which is shaft (upper) and which is tip (lower)
+                    if candidates[0]['centroid'][1] < candidates[1]['centroid'][1]:
+                        shaft_info = candidates[0]
+                        # Validate tip has two distinct edges at boundary
+                        if (not self.validate_tip_edges_enabled or
+                                self.validate_tip_edges(candidates[1], frame=frame,
+                                                        min_edge_separation=self.min_edge_separation)):
+                            tip_info = candidates[1]
+                    else:
+                        shaft_info = candidates[1]
+                        # Validate tip has two distinct edges at boundary
+                        if (not self.validate_tip_edges_enabled or
+                                self.validate_tip_edges(candidates[0], frame=frame,
+                                                        min_edge_separation=self.min_edge_separation)):
+                            tip_info = candidates[0]
 
             return shaft_info, tip_info
 
-        # Filter candidates based on position and area
-        left_boundary = frame_width * 0.65
-        min_area = 200
-        max_area = 15000
-
-        valid_candidates = [
-            c for c in contours_info
-            if c['centroid'][0] < left_boundary
-            and min_area < c['area'] < max_area
-        ]
-
-        if len(valid_candidates) < 2:
+        if not tip_contours_info:
             return None, None
 
-        # Sort by area
-        valid_candidates.sort(key=lambda x: x['area'], reverse=True)
+        # Simple tracking mode: use two largest contours, merging tip list if provided
+        if self.use_simple_tracking:
+            merged = contours_info[:]
+            for c in tip_contours_info:
+                if c not in merged:
+                    merged.append(c)
+            merged.sort(key=lambda x: x['area'], reverse=True)
+            if len(merged) < 2:
+                return None, None
+            candidates = merged[:2]
+            if candidates[0]['centroid'][1] < candidates[1]['centroid'][1]:
+                return candidates[0], candidates[1]
+            return candidates[1], candidates[0]
+
+        def _filter_candidates(contours, max_x, min_area, max_area):
+            return [
+                c for c in contours
+                if c['centroid'][0] < max_x
+                and min_area < c['area'] < max_area
+            ]
+
+        shaft_boundary = frame_width * self.max_x_ratio
+        valid_shaft_candidates = _filter_candidates(
+            contours_info,
+            shaft_boundary,
+            self.min_area,
+            self.max_area
+        )
+        if len(valid_shaft_candidates) < 1 and self.exclude_right_pixels > 0:
+            relaxed_boundary = frame_width - self.exclude_right_pixels
+            valid_shaft_candidates = _filter_candidates(
+                contours_info,
+                relaxed_boundary,
+                self.min_area,
+                self.max_area
+            )
+        if len(valid_shaft_candidates) < 1:
+            valid_shaft_candidates = _filter_candidates(
+                contours_info,
+                frame_width,
+                self.min_area,
+                self.max_area
+            )
+
+        tip_boundary_ratio = self.tip_max_x_ratio if self.tip_max_x_ratio is not None else self.max_x_ratio
+        tip_boundary = frame_width * tip_boundary_ratio
+        valid_tip_candidates = _filter_candidates(
+            tip_contours_info,
+            tip_boundary,
+            self.tip_min_area,
+            self.tip_max_area
+        )
+        if len(valid_tip_candidates) < 1 and self.tip_exclude_right_pixels > 0:
+            relaxed_boundary = frame_width - self.tip_exclude_right_pixels
+            valid_tip_candidates = _filter_candidates(
+                tip_contours_info,
+                relaxed_boundary,
+                self.tip_min_area,
+                self.tip_max_area
+            )
+        if len(valid_tip_candidates) < 1:
+            valid_tip_candidates = _filter_candidates(
+                tip_contours_info,
+                frame_width,
+                self.tip_min_area,
+                self.tip_max_area
+            )
 
         # TEMPORAL TRACKING: If we have previous positions, use proximity-based search
         if prev_shaft is not None and prev_tip is not None:
@@ -237,7 +463,7 @@ class GreenPointTracker:
 
             # Find closest region to previous shaft position
             shaft_candidates_near = []
-            for c in valid_candidates[:20]:
+            for c in valid_shaft_candidates[:20]:
                 cx, cy = c['centroid']
                 dist = ((cx - prev_shaft[0])**2 + (cy - prev_shaft[1])**2)**0.5
                 if dist < search_radius:
@@ -245,7 +471,7 @@ class GreenPointTracker:
 
             # Find closest region to previous tip position
             tip_candidates_near = []
-            for c in valid_candidates[:20]:
+            for c in valid_tip_candidates[:20]:
                 cx, cy = c['centroid']
                 dist = ((cx - prev_tip[0])**2 + (cy - prev_tip[1])**2)**0.5
                 if dist < search_radius:
@@ -260,7 +486,9 @@ class GreenPointTracker:
                 tip_candidates_near.sort(key=lambda x: x[0])  # Sort by distance
                 # Validate tip has two distinct edges before accepting
                 candidate_tip = tip_candidates_near[0][1]
-                if self.validate_tip_edges(candidate_tip, frame=frame):
+                if (not self.validate_tip_edges_enabled or
+                        self.validate_tip_edges(candidate_tip, frame=frame,
+                                                min_edge_separation=self.min_edge_separation)):
                     tip_info = candidate_tip
 
             # If both found via temporal tracking, return them
@@ -271,17 +499,24 @@ class GreenPointTracker:
         shaft_candidates = []
         tip_candidates = []
 
-        for c in valid_candidates[:15]:
+        for c in valid_shaft_candidates[:15]:
             cx, cy = c['centroid']
 
             # Shaft region: upper-middle area (initial: ~724, 460)
             if 380 < cy < 520 and 620 < cx < 850:
                 shaft_candidates.append(c)
 
-            # Tip region: lower-right (initial: ~902, 707)
-            if 650 < cy < 800 and 800 < cx < 1000:
-                # Validate tip has two distinct edges at boundary
-                if self.validate_tip_edges(c, frame=frame):
+        for c in valid_tip_candidates[:15]:
+            cx, cy = c['centroid']
+            if self.tip_roi is not None:
+                x1, y1, x2, y2 = self.tip_roi
+                in_zone = x1 <= cx <= x2 and y1 <= cy <= y2
+            else:
+                in_zone = 650 < cy < 800 and 800 < cx < 1000
+            if in_zone:
+                if (not self.validate_tip_edges_enabled or
+                        self.validate_tip_edges(c, frame=frame,
+                                                min_edge_separation=self.min_edge_separation)):
                     tip_candidates.append(c)
 
         # Select largest from each category
@@ -290,19 +525,17 @@ class GreenPointTracker:
 
         # Fallback
         if not shaft_info or not tip_info:
-            if len(valid_candidates) >= 2:
-                candidates = valid_candidates[:2]
-                # Determine which is shaft (upper) and which is tip (lower)
-                if candidates[0]['centroid'][1] < candidates[1]['centroid'][1]:
-                    shaft_info = candidates[0]
-                    # Validate tip has two distinct edges at boundary
-                    if self.validate_tip_edges(candidates[1], frame=frame):
-                        tip_info = candidates[1]
-                else:
-                    shaft_info = candidates[1]
-                    # Validate tip has two distinct edges at boundary
-                    if self.validate_tip_edges(candidates[0], frame=frame):
-                        tip_info = candidates[0]
+            if shaft_info is None and valid_shaft_candidates:
+                shaft_info = valid_shaft_candidates[0]
+            if tip_info is None and valid_tip_candidates:
+                for candidate in valid_tip_candidates:
+                    if shaft_info is not None and candidate == shaft_info:
+                        continue
+                    if (not self.validate_tip_edges_enabled or
+                            self.validate_tip_edges(candidate, frame=frame,
+                                                    min_edge_separation=self.min_edge_separation)):
+                        tip_info = candidate
+                        break
 
         return shaft_info, tip_info
 
@@ -320,7 +553,10 @@ class GreenPointTracker:
         return np.sqrt((point2[0] - point1[0])**2 + (point2[1] - point1[1])**2)
 
     def annotate_frame(self, frame: np.ndarray, shaft_info: dict, tip_info: dict,
-                       distance: float, pixels_per_mm: float = None) -> np.ndarray:
+                       distance: float, pixels_per_mm: float = None,
+                       delta_mm: Optional[float] = None,
+                       absolute_mm: Optional[float] = None,
+                       show_true_39mm: bool = False) -> np.ndarray:
         """
         Draw annotations on the frame.
 
@@ -352,18 +588,31 @@ class GreenPointTracker:
         if shaft_info and tip_info:
             cv2.line(annotated, shaft_info['centroid'], tip_info['centroid'], (0, 255, 255), 2)
 
-            # Draw distance text (in mm if calibrated, otherwise pixels)
-            mid_x = (shaft_info['centroid'][0] + tip_info['centroid'][0]) // 2
-            mid_y = (shaft_info['centroid'][1] + tip_info['centroid'][1]) // 2
+            # Draw distance text (delta mm if provided, otherwise absolute)
+            text_x = 40
+            text_y = 55
+            line_gap = 24
 
-            if pixels_per_mm:
+            if delta_mm is not None:
+                cv2.putText(annotated, f"delta = {delta_mm:.2f} mm",
+                           (text_x, text_y),
+                           cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
+                if absolute_mm is not None:
+                    cv2.putText(annotated, f"abs = {absolute_mm:.2f} mm",
+                               (text_x, text_y + line_gap),
+                               cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
+                    if show_true_39mm and absolute_mm >= 39.0:
+                        cv2.putText(annotated, ">= 39 mm",
+                                   (text_x, text_y + line_gap * 2),
+                                   cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 200, 0), 2)
+            elif pixels_per_mm:
                 distance_mm = distance / pixels_per_mm
                 cv2.putText(annotated, f"d = {distance_mm:.1f} mm",
-                           (mid_x - 60, mid_y - 10),
+                           (text_x, text_y),
                            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
             else:
                 cv2.putText(annotated, f"d = {distance:.1f} px",
-                           (mid_x - 50, mid_y - 10),
+                           (text_x, text_y),
                            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
 
         return annotated
@@ -488,7 +737,10 @@ class VideoAnalyzer:
                      time_offset: float = 0.0,
                      pixels_per_mm: Optional[float] = None,
                      init_shaft_pos: Optional[Tuple[int, int]] = None,
-                     init_tip_pos: Optional[Tuple[int, int]] = None) -> dict:
+                     init_tip_pos: Optional[Tuple[int, int]] = None,
+                     display_delta_mm: bool = False,
+                     initial_gape_mm: Optional[float] = None,
+                     show_true_39mm: bool = False) -> dict:
         """
         Process the entire video and track points.
 
@@ -537,6 +789,8 @@ class VideoAnalyzer:
         prev_shaft_pos = init_shaft_pos
         prev_tip_pos = init_tip_pos
 
+        baseline_px = None
+
         while True:
             ret, frame = cap.read()
             if not ret:
@@ -547,8 +801,35 @@ class VideoAnalyzer:
                 frame_number += 1
                 continue
 
-            # Find green regions
+            # Find green regions for shaft
             mask, contours_info = self.tracker.find_green_regions(frame)
+
+            # Optional separate detection for tip
+            tip_contours_info = None
+            tip_roi = self.tracker.tip_roi
+            roi_mode = (self.tracker.tip_roi_mode or "static").lower()
+            if roi_mode == "initial_only":
+                if prev_tip_pos is not None:
+                    tip_roi = None
+            elif roi_mode == "follow_prev":
+                if prev_tip_pos is not None:
+                    radius = self.tracker.tip_roi_radius or self.tracker.search_radius
+                    tip_roi = (
+                        int(prev_tip_pos[0] - radius),
+                        int(prev_tip_pos[1] - radius),
+                        int(prev_tip_pos[0] + radius),
+                        int(prev_tip_pos[1] + radius),
+                    )
+            if self.tracker.tip_hsv_lower is not None or self.tracker.tip_hsv_upper is not None or tip_roi is not None:
+                _, tip_contours_info = self.tracker.find_green_regions(
+                    frame,
+                    hsv_lower=self.tracker.tip_hsv_lower,
+                    hsv_upper=self.tracker.tip_hsv_upper,
+                    exclude_right_pixels=self.tracker.tip_exclude_right_pixels,
+                    min_contour_area=self.tracker.tip_min_contour_area,
+                    morph_kernel_size=self.tracker.tip_morph_kernel_size,
+                    roi=tip_roi
+                )
 
             # Identify shaft and tip using temporal tracking
             shaft_info, tip_info = self.tracker.identify_shaft_and_tip(
@@ -557,7 +838,9 @@ class VideoAnalyzer:
                 frame_height=height,
                 prev_shaft=prev_shaft_pos,
                 prev_tip=prev_tip_pos,
-                frame=frame
+                frame=frame,
+                search_radius=self.tracker.search_radius,
+                tip_contours_info=tip_contours_info
             )
 
             # Fallback: If manual positions provided but detection failed, search for ANY green near manual positions
@@ -578,11 +861,12 @@ class VideoAnalyzer:
                     if closest_shaft:
                         shaft_info = closest_shaft
 
-                if tip_info is None and prev_tip_pos is not None and len(contours_info) > 0:
+                tip_candidates = tip_contours_info if tip_contours_info is not None else contours_info
+                if tip_info is None and prev_tip_pos is not None and len(tip_candidates) > 0:
                     # Find closest contour to tip position
                     closest_tip = None
                     min_dist = float('inf')
-                    for c in contours_info:
+                    for c in tip_candidates:
                         cx, cy = c['centroid']
                         # Make sure it's not the same as shaft
                         if shaft_info and c == shaft_info:
@@ -596,6 +880,8 @@ class VideoAnalyzer:
 
             # Calculate distance
             distance = 0.0
+            delta_mm = None
+            absolute_mm = None
             if shaft_info and tip_info:
                 distance = self.tracker.calculate_distance(
                     shaft_info['centroid'],
@@ -610,6 +896,13 @@ class VideoAnalyzer:
                 self.results['tip_x'].append(tip_info['centroid'][0])
                 self.results['tip_y'].append(tip_info['centroid'][1])
                 self.results['distance_pixels'].append(distance)
+
+                if display_delta_mm and pixels_per_mm:
+                    if baseline_px is None:
+                        baseline_px = distance
+                    delta_mm = (distance - baseline_px) / pixels_per_mm
+                    if initial_gape_mm is not None:
+                        absolute_mm = initial_gape_mm + delta_mm
 
                 # Update previous positions for next frame
                 prev_shaft_pos = shaft_info['centroid']
@@ -631,7 +924,16 @@ class VideoAnalyzer:
                     tip_info['centroid'] = (height - orig_y, orig_x)
 
             # Annotate frame (after rotation)
-            annotated_frame = self.tracker.annotate_frame(frame_to_annotate, shaft_info, tip_info, distance, pixels_per_mm)
+            annotated_frame = self.tracker.annotate_frame(
+                frame_to_annotate,
+                shaft_info,
+                tip_info,
+                distance,
+                pixels_per_mm,
+                delta_mm=delta_mm,
+                absolute_mm=absolute_mm,
+                show_true_39mm=show_true_39mm
+            )
 
             # Add force-displacement overlay if mechanical data provided (after rotation)
             if shimadzu_df is not None:

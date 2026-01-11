@@ -186,21 +186,34 @@ def plot_force_vs_gape(synced_df: pd.DataFrame,
     """
     fig, ax = plt.subplots(figsize=(10, 8))
 
-    # Filter out NaN gape values
-    valid_data = synced_df[synced_df['Gape_Distance_px'].notna()].copy()
+    # Filter out NaN gape values (prefer corrected mm if available)
+    use_mm = False
+    if (
+        pixels_per_mm
+        and 'Gape_Distance_mm_corrected' in synced_df.columns
+        and synced_df['Gape_Distance_mm_corrected'].notna().any()
+    ):
+        valid_data = synced_df[synced_df['Gape_Distance_mm_corrected'].notna()].copy()
+        gape = valid_data['Gape_Distance_mm_corrected'].values
+        gape_label = 'Gape Distance (mm, corrected)'
+        use_mm = True
+    else:
+        valid_data = synced_df[synced_df['Gape_Distance_px'].notna()].copy()
 
     if len(valid_data) == 0:
         print("Warning: No valid synchronized gape data to plot")
         return None
 
-    gape = valid_data['Gape_Distance_px'].values
     force = valid_data['Force'].values
 
-    # Convert to mm if calibration is provided
-    gape_label = 'Gape Distance (pixels)'
-    if pixels_per_mm:
-        gape = gape / pixels_per_mm
-        gape_label = 'Gape Distance (mm)'
+    # Convert to mm if calibration is provided and corrected not used
+    if not use_mm:
+        gape = valid_data['Gape_Distance_px'].values
+        gape_label = 'Gape Distance (pixels)'
+        if pixels_per_mm:
+            gape = gape / pixels_per_mm
+            gape_label = 'Gape Distance (mm)'
+            use_mm = True
 
     # Plot gape vs force (gape on y-axis, force on x-axis)
     ax.plot(force, gape, 'b-', linewidth=2, alpha=0.7)
@@ -217,15 +230,15 @@ def plot_force_vs_gape(synced_df: pd.DataFrame,
             label=f'Peak Force: {max_force:.1f} N', zorder=5)
 
     # Add annotations for peak
-    ax.annotate(f'{max_force:.1f} N\n@ {gape_at_max_force:.2f} {"mm" if pixels_per_mm else "px"}',
+    ax.annotate(f'{max_force:.1f} N\n@ {gape_at_max_force:.2f} {"mm" if use_mm else "px"}',
                 xy=(max_force, gape_at_max_force),
                 xytext=(20, 20), textcoords='offset points',
                 fontsize=11, fontweight='bold',
                 bbox=dict(boxstyle='round,pad=0.5', facecolor='yellow', alpha=0.7),
                 arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0', lw=2))
 
-    # Find and mark force at 39mm gape (if calibrated)
-    if pixels_per_mm:
+    # Find and mark force at 39mm gape (if using mm)
+    if use_mm:
         target_gape_mm = 39.0
         # Find index where gape is closest to 39mm
         gape_diff = np.abs(gape - target_gape_mm)
@@ -255,10 +268,10 @@ def plot_force_vs_gape(synced_df: pd.DataFrame,
     # Add statistics text box
     stats_text = f"""Statistics:
 Peak Force: {max_force:.2f} N
-Gape at Peak: {gape_at_max_force:.2f} {"mm" if pixels_per_mm else "px"}
-Initial Gape: {gape[0]:.2f} {"mm" if pixels_per_mm else "px"}
-Final Gape: {gape[-1]:.2f} {"mm" if pixels_per_mm else "px"}
-Gape Change: {gape[-1] - gape[0]:.2f} {"mm" if pixels_per_mm else "px"}"""
+Gape at Peak: {gape_at_max_force:.2f} {"mm" if use_mm else "px"}
+Initial Gape: {gape[0]:.2f} {"mm" if use_mm else "px"}
+Final Gape: {gape[-1]:.2f} {"mm" if use_mm else "px"}
+Gape Change: {gape[-1] - gape[0]:.2f} {"mm" if use_mm else "px"}"""
 
     ax.text(0.02, 0.98, stats_text, transform=ax.transAxes,
             fontsize=10, verticalalignment='top',

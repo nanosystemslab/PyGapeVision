@@ -1,0 +1,1958 @@
+defaults:
+  sync: {}
+  tracking: {}
+samples:
+  A1:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A10:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A11:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A13:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A14:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A15:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A16:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A18:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A19:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A2:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A21:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A22:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A23:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A24:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A25:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A3:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A4:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A5:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A6:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A7:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A8:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  A9:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B10:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B11:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B12:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B13:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B14:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B15:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B16:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B17:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B18:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B19:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B2:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B20:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B21:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B22:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B23:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B24:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B25:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B3:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B4:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B5:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B6:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B7:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B8:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  B9:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C1:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C10:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C11:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C12:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C13:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C14:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C15:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C16:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C17:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C18:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C19:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C2:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C20:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C21:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C22:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C23:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C24:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C25:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C3:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C4:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C5:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C6:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C7:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C8:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  C9:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D1:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D10:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D11:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D12:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D14:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D16:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D17:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D18:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D19:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D2:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D21:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D22:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D23:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D24:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D25:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D3:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D4:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D5:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D6:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D8:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  D9:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  E11:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  E12:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  E14:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  E16:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  E18:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  E2:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  E22:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  E24:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  E9:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  F10:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  F11:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  F12:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  F14:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  F17:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  F19:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  F2:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  F21:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  F23:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  F3:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  F5:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  G12:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  G18:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  G19:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  G22:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  G24:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  G4:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  G7:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  H10:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  H14:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  H18:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  H19:
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  H21:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  H3:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  H4:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  H9:
+    sync:
+      method: drop_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+  E7:
+    status: manual_review
+    notes: tip tracking fails after opening; needs manual pipeline
+    tracking:
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      tip_hsv_lower:
+      - 44
+      - 24
+      - 158
+      tip_hsv_upper:
+      - 70
+      - 255
+      - 255
+      tip_roi:
+      - 880
+      - 620
+      - 980
+      - 740
+      tip_roi_mode: follow_prev
+      tip_roi_radius: 250
+      tip_min_area: 20
+      tip_min_contour_area: 10
+      validate_tip_edges: false
+  A12:
+    status: manual_review
+    notes: tip ROI workaround still unreliable; defer to manual pipeline
+    tracking:
+      tip_roi:
+      - 700
+      - 580
+      - 1050
+      - 820
+      tip_roi_mode: follow_prev
+      tip_roi_radius: 250
+      tip_min_area: 20
+      tip_min_contour_area: 10
+  E4:
+    sync:
+      method: peak_alignment
+  G1:
+    sync:
+      method: peak_alignment

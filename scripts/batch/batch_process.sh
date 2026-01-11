@@ -17,6 +17,24 @@ OUTPUT_BASE="results/batch"
 FPS=30
 FRAME_SKIP=10
 PIXELS_PER_MM="12.103"  # Calibration: 12.103 pixels per mm
+SYNC_METHOD="multi_signature"
+SYNC_SEARCH_MIN="-30"
+SYNC_SEARCH_MAX="30"
+SYNC_SEARCH_STEPS="200"
+SIGNATURE_FORCE_WEIGHT="0.7"
+SIGNATURE_STROKE_WEIGHT="0.3"
+SIGNATURE_SMOOTH_WINDOW="5"
+SHOW_TRUE_39MM="--show-true-39mm"
+CONFIG_YAML="configs/processing_config.yaml"
+CONFIG_YAML_ARG=""
+if [ -f "$CONFIG_YAML" ]; then
+    CONFIG_YAML_ARG="--config $CONFIG_YAML"
+fi
+SYNC_CONFIG="configs/sync_overrides.csv"
+SYNC_CONFIG_ARG=""
+if [ -f "$SYNC_CONFIG" ] && [ -z "$CONFIG_YAML_ARG" ]; then
+    SYNC_CONFIG_ARG="--sync-config $SYNC_CONFIG"
+fi
 
 # Speed optimization: Skip video output for faster processing
 # Comment out this line to generate annotated videos (much slower)
@@ -81,8 +99,18 @@ for batch_dir in "$VIDEO_BASE"/*; do
         --frame-skip $FRAME_SKIP \
         --fps $FPS \
         --output-dir \"$output_dir\" \
+        $CONFIG_YAML_ARG \
+        $SYNC_CONFIG_ARG \
+        --sync-method $SYNC_METHOD \
+        --sync-search-min $SYNC_SEARCH_MIN \
+        --sync-search-max $SYNC_SEARCH_MAX \
+        --sync-search-steps $SYNC_SEARCH_STEPS \
+        --signature-force-weight $SIGNATURE_FORCE_WEIGHT \
+        --signature-stroke-weight $SIGNATURE_STROKE_WEIGHT \
+        --signature-smooth-window $SIGNATURE_SMOOTH_WINDOW \
         --calculate-delta-gape \
         --use-datasheet-initial-gape \
+        $SHOW_TRUE_39MM \
         --exclude-right-pixels 400 \
         $SKIP_VIDEO"
 

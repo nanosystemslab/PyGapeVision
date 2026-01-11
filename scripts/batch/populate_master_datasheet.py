@@ -7,6 +7,7 @@ Reads the master datasheet with initial gape measurements and fills in:
 - Force at 39mm Gape
 - Time to failure
 - Gape at Failure
+- Force at Failure
 
 Usage (from project root):
     python scripts/batch/populate_master_datasheet.py
@@ -34,13 +35,24 @@ def find_metrics_from_results(csv_path, pixels_per_mm, target_total_gape_mm=39.0
         target_total_gape_mm: Target total gape in mm (e.g., 39mm)
 
     Returns:
-        Dictionary with metrics (time_to_39mm, force_at_39mm, time_to_failure, gape_at_failure)
+        Dictionary with metrics (time_to_39mm, force_at_39mm, time_to_failure, gape_at_failure, force_at_failure)
     """
     try:
         df = pd.read_csv(csv_path)
 
-        # Check if Delta_Gape_px column exists
-        if 'Delta_Gape_px' in df.columns and 'Initial_Gape_px' in df.columns:
+        gape_mm = None
+        if 'Gape_Distance_mm_corrected' in df.columns and df['Gape_Distance_mm_corrected'].notna().any():
+            gape_mm = df['Gape_Distance_mm_corrected']
+        elif 'Gape_Distance_mm' in df.columns and df['Gape_Distance_mm'].notna().any():
+            gape_mm = df['Gape_Distance_mm']
+        elif 'Gape_Distance_px' in df.columns:
+            gape_mm = df['Gape_Distance_px'] / pixels_per_mm
+
+        if gape_mm is not None:
+            matches_39mm = df[gape_mm >= target_total_gape_mm]
+            time_to_39mm = matches_39mm.iloc[0]['Time'] if len(matches_39mm) > 0 else None
+            force_at_39mm = matches_39mm.iloc[0]['Force'] if len(matches_39mm) > 0 else None
+        elif 'Delta_Gape_px' in df.columns and 'Initial_Gape_px' in df.columns:
             # Get initial gape in mm
             initial_gape_mm = df['Initial_Gape_px'].iloc[0] / pixels_per_mm
 
@@ -55,23 +67,25 @@ def find_metrics_from_results(csv_path, pixels_per_mm, target_total_gape_mm=39.0
             time_to_39mm = matches_39mm.iloc[0]['Time'] if len(matches_39mm) > 0 else None
             force_at_39mm = matches_39mm.iloc[0]['Force'] if len(matches_39mm) > 0 else None
         else:
-            # Fallback to absolute gape if delta not available
-            df['Gape_mm'] = df['Gape_Distance_px'] / pixels_per_mm
-            matches_39mm = df[df['Gape_mm'] >= target_total_gape_mm]
-            time_to_39mm = matches_39mm.iloc[0]['Time'] if len(matches_39mm) > 0 else None
-            force_at_39mm = matches_39mm.iloc[0]['Force'] if len(matches_39mm) > 0 else None
+            time_to_39mm = None
+            force_at_39mm = None
 
         # Failure metrics (at max force)
         max_force_idx = df['Force'].idxmax()
         time_to_failure = df.loc[max_force_idx, 'Time']
-        df['Gape_mm'] = df['Gape_Distance_px'] / pixels_per_mm
-        gape_at_failure = df.loc[max_force_idx, 'Gape_mm']
+        if gape_mm is None:
+            df['Gape_mm'] = df['Gape_Distance_px'] / pixels_per_mm
+            gape_at_failure = df.loc[max_force_idx, 'Gape_mm']
+        else:
+            gape_at_failure = gape_mm.loc[max_force_idx]
+        force_at_failure = df.loc[max_force_idx, 'Force']
 
         return {
             'time_to_39mm': time_to_39mm,
             'force_at_39mm': force_at_39mm,
             'time_to_failure': time_to_failure,
-            'gape_at_failure': gape_at_failure
+            'gape_at_failure': gape_at_failure,
+            'force_at_failure': force_at_failure
         }
 
     except Exception as e:
@@ -80,7 +94,8 @@ def find_metrics_from_results(csv_path, pixels_per_mm, target_total_gape_mm=39.0
             'time_to_39mm': None,
             'force_at_39mm': None,
             'time_to_failure': None,
-            'gape_at_failure': None
+            'gape_at_failure': None,
+            'force_at_failure': None
         }
 
 
@@ -141,6 +156,11 @@ def main():
                 master_df.at[idx, 'Force at 39mm Gape'] = metrics['force_at_39mm']
                 master_df.at[idx, 'Time to failure'] = metrics['time_to_failure']
                 master_df.at[idx, 'Gape at Failure'] = metrics['gape_at_failure']
+
+                # Add Force at Failure column if it doesn't exist
+                if 'Force at Failure' not in master_df.columns:
+                    master_df['Force at Failure'] = None
+                master_df.at[idx, 'Force at Failure'] = metrics['force_at_failure']
 
                 updated_count += 1
                 print(f" - Updated")

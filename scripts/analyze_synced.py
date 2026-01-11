@@ -9,6 +9,8 @@ Usage (from project root):
 import argparse
 import sys
 import json
+import csv
+import yaml
 from pathlib import Path
 
 # Add project root to Python path
@@ -20,6 +22,152 @@ from src.visualization import plot_tracking_results, plot_force_vs_gape, plot_st
 from src.sync import (load_shimadzu_csv, find_test_start, auto_sync_video_to_mechanical,
                      sync_data, plot_synchronized_data)
 from src.datasheet import load_initial_gape_from_datasheet
+
+
+def load_sync_overrides(config_path: Path) -> tuple[dict, dict]:
+    defaults = {}
+    overrides = {}
+    if not config_path.exists():
+        return defaults, overrides
+
+    with config_path.open(newline="") as f:
+        rows = (row for row in f if row.strip() and not row.lstrip().startswith("#"))
+        reader = csv.DictReader(rows)
+        for row in reader:
+            sample = (row.get("sample") or row.get("Sample") or "").strip()
+            if not sample:
+                continue
+            if sample.lower() in ("default", "*"):
+                defaults = row
+                continue
+            overrides[sample] = row
+    return defaults, overrides
+
+
+def apply_sync_overrides(args, override_row: dict) -> None:
+    field_types = {
+        "sync_method": str,
+        "drop_smooth_window": int,
+        "sync_search_min": float,
+        "sync_search_max": float,
+        "sync_search_steps": int,
+        "signature_force_weight": float,
+        "signature_stroke_weight": float,
+        "signature_smooth_window": int,
+        "force_threshold": float,
+        "stroke_threshold": float,
+        "video_change_threshold_px": float,
+        "baseline_frames": int,
+        "min_consecutive": int,
+    }
+
+    for field, caster in field_types.items():
+        raw_value = override_row.get(field)
+        if raw_value is None:
+            continue
+        raw_value = raw_value.strip()
+        if raw_value == "":
+            continue
+        try:
+            setattr(args, field, caster(raw_value))
+        except ValueError:
+            print(f"Warning: Invalid override for {field}: {raw_value}")
+
+
+def load_processing_config(config_path: Path) -> dict:
+    if not config_path.exists():
+        return {}
+    with config_path.open("r") as f:
+        return yaml.safe_load(f) or {}
+
+
+def _format_hsv(value) -> str:
+    if isinstance(value, (list, tuple)) and len(value) == 3:
+        return ",".join(str(int(v)) for v in value)
+    return str(value)
+
+
+def _format_point(value) -> str:
+    if isinstance(value, (list, tuple)) and len(value) == 2:
+        return f"{int(value[0])},{int(value[1])}"
+    return str(value)
+
+def _format_bbox(value) -> str:
+    if isinstance(value, (list, tuple)) and len(value) == 4:
+        return ",".join(str(int(v)) for v in value)
+    return str(value)
+
+
+def apply_config_overrides(args, override_block: dict) -> None:
+    if not override_block:
+        return
+
+    sync = override_block.get("sync", {})
+    tracking = override_block.get("tracking", {})
+
+    sync_map = {
+        "method": "sync_method",
+        "drop_smooth_window": "drop_smooth_window",
+        "search_min": "sync_search_min",
+        "search_max": "sync_search_max",
+        "search_steps": "sync_search_steps",
+        "signature_force_weight": "signature_force_weight",
+        "signature_stroke_weight": "signature_stroke_weight",
+        "signature_smooth_window": "signature_smooth_window",
+        "force_threshold": "force_threshold",
+        "stroke_threshold": "stroke_threshold",
+        "video_change_threshold_px": "video_change_threshold_px",
+        "baseline_frames": "baseline_frames",
+        "min_consecutive": "min_consecutive",
+    }
+
+    tracking_map = {
+        "exclude_right_pixels": "exclude_right_pixels",
+        "use_simple_tracking": "use_simple_tracking",
+        "min_area": "min_area",
+        "max_area": "max_area",
+        "max_x_ratio": "max_x_ratio",
+        "search_radius": "search_radius",
+        "validate_tip_edges": "validate_tip_edges",
+        "min_edge_separation": "min_edge_separation",
+        "min_contour_area": "min_contour_area",
+        "morph_kernel_size": "morph_kernel_size",
+        "tip_min_area": "tip_min_area",
+        "tip_max_area": "tip_max_area",
+        "tip_min_contour_area": "tip_min_contour_area",
+        "tip_morph_kernel_size": "tip_morph_kernel_size",
+        "tip_exclude_right_pixels": "tip_exclude_right_pixels",
+        "tip_max_x_ratio": "tip_max_x_ratio",
+        "tip_roi_mode": "tip_roi_mode",
+        "tip_roi_radius": "tip_roi_radius",
+    }
+
+    for key, attr in sync_map.items():
+        if key in sync:
+            setattr(args, attr, sync[key])
+
+    if "hsv_lower" in tracking:
+        args.hsv_lower = _format_hsv(tracking["hsv_lower"])
+    if "hsv_upper" in tracking:
+        args.hsv_upper = _format_hsv(tracking["hsv_upper"])
+    if "tip_hsv_lower" in tracking:
+        args.tip_hsv_lower = _format_hsv(tracking["tip_hsv_lower"])
+    if "tip_hsv_upper" in tracking:
+        args.tip_hsv_upper = _format_hsv(tracking["tip_hsv_upper"])
+    if "init_shaft_pos" in tracking:
+        args.init_shaft_pos = _format_point(tracking["init_shaft_pos"])
+    if "init_tip_pos" in tracking:
+        args.init_tip_pos = _format_point(tracking["init_tip_pos"])
+    if "tip_roi" in tracking:
+        args.tip_roi = _format_bbox(tracking["tip_roi"])
+    if "tip_roi_mode" in tracking:
+        args.tip_roi_mode = tracking["tip_roi_mode"]
+    if "tip_roi_radius" in tracking:
+        args.tip_roi_radius = tracking["tip_roi_radius"]
+
+    for key, attr in tracking_map.items():
+        if key in tracking:
+            setattr(args, attr, tracking[key])
 
 
 def main():
@@ -59,6 +207,97 @@ def main():
         type=float,
         default=None,
         help='Manual time offset in seconds (video time + offset = mechanical time). If not provided, auto-sync is used.'
+    )
+    parser.add_argument(
+        '--sync-method',
+        type=str,
+        default='start_alignment',
+        choices=['start_alignment', 'peak_alignment', 'drop_alignment', 'multi_signature', 'correlation'],
+        help='Auto-sync method: start_alignment, peak_alignment, drop_alignment, multi_signature, or correlation (default: start_alignment)'
+    )
+    parser.add_argument(
+        '--config',
+        type=str,
+        default=None,
+        help='YAML config with defaults and per-sample overrides'
+    )
+    parser.add_argument(
+        '--sync-config',
+        type=str,
+        default=None,
+        help='Optional CSV mapping sample to sync overrides (e.g., configs/sync_overrides.csv)'
+    )
+    parser.add_argument(
+        '--sync-search-min',
+        type=float,
+        default=-30.0,
+        help='Minimum time offset (s) for multi_signature/correlation (default: -30)'
+    )
+    parser.add_argument(
+        '--sync-search-max',
+        type=float,
+        default=30.0,
+        help='Maximum time offset (s) for multi_signature/correlation (default: 30)'
+    )
+    parser.add_argument(
+        '--sync-search-steps',
+        type=int,
+        default=200,
+        help='Number of offsets to evaluate for multi_signature/correlation (default: 200)'
+    )
+    parser.add_argument(
+        '--force-threshold',
+        type=float,
+        default=0.1,
+        help='Force threshold (N) for start_alignment (default: 0.1)'
+    )
+    parser.add_argument(
+        '--stroke-threshold',
+        type=float,
+        default=0.01,
+        help='Stroke threshold (mm) for start_alignment (default: 0.01)'
+    )
+    parser.add_argument(
+        '--video-change-threshold-px',
+        type=float,
+        default=3.0,
+        help='Pixel change threshold for start_alignment (default: 3.0)'
+    )
+    parser.add_argument(
+        '--baseline-frames',
+        type=int,
+        default=5,
+        help='Baseline frame count for start_alignment (default: 5)'
+    )
+    parser.add_argument(
+        '--min-consecutive',
+        type=int,
+        default=3,
+        help='Minimum consecutive frames above threshold for start_alignment (default: 3)'
+    )
+    parser.add_argument(
+        '--drop-smooth-window',
+        type=int,
+        default=5,
+        help='Smoothing window for drop_alignment (default: 5)'
+    )
+    parser.add_argument(
+        '--signature-force-weight',
+        type=float,
+        default=0.7,
+        help='Force rate weight for multi_signature (default: 0.7)'
+    )
+    parser.add_argument(
+        '--signature-stroke-weight',
+        type=float,
+        default=0.3,
+        help='Stroke rate weight for multi_signature (default: 0.3)'
+    )
+    parser.add_argument(
+        '--signature-smooth-window',
+        type=int,
+        default=5,
+        help='Smoothing window for multi_signature (default: 5)'
     )
     parser.add_argument(
         '--pixels-per-mm',
@@ -101,15 +340,141 @@ def main():
         help='HSV upper bound for green detection (H,S,V) (default: 55,255,255)'
     )
     parser.add_argument(
+        '--tip-hsv-lower',
+        type=str,
+        default=None,
+        help='HSV lower bound for tip detection (H,S,V). Defaults to --hsv-lower if not set.'
+    )
+    parser.add_argument(
+        '--tip-hsv-upper',
+        type=str,
+        default=None,
+        help='HSV upper bound for tip detection (H,S,V). Defaults to --hsv-upper if not set.'
+    )
+    parser.add_argument(
+        '--tip-roi',
+        type=str,
+        default=None,
+        help='Tip ROI as "x1,y1,x2,y2" (limits tip detection region)'
+    )
+    parser.add_argument(
+        '--tip-roi-mode',
+        type=str,
+        default="static",
+        choices=["static", "initial_only", "follow_prev"],
+        help='Tip ROI behavior: static, initial_only, or follow_prev (default: static)'
+    )
+    parser.add_argument(
+        '--tip-roi-radius',
+        type=int,
+        default=None,
+        help='Tip ROI radius (pixels) when using follow_prev (default: --search-radius)'
+    )
+    parser.add_argument(
         '--exclude-right-pixels',
         type=int,
         default=400,
         help='Exclude this many pixels from the right edge (for rulers/overlays) (default: 400)'
     )
     parser.add_argument(
+        '--use-simple-tracking',
+        action='store_true',
+        help='Use simple tracking (two largest contours)'
+    )
+    parser.add_argument(
+        '--min-area',
+        type=int,
+        default=200,
+        help='Minimum contour area to consider (default: 200)'
+    )
+    parser.add_argument(
+        '--max-area',
+        type=int,
+        default=15000,
+        help='Maximum contour area to consider (default: 15000)'
+    )
+    parser.add_argument(
+        '--tip-min-area',
+        type=int,
+        default=None,
+        help='Minimum contour area for tip candidates (default: --min-area)'
+    )
+    parser.add_argument(
+        '--tip-max-area',
+        type=int,
+        default=None,
+        help='Maximum contour area for tip candidates (default: --max-area)'
+    )
+    parser.add_argument(
+        '--max-x-ratio',
+        type=float,
+        default=0.65,
+        help='Max X ratio for initial detection region (default: 0.65)'
+    )
+    parser.add_argument(
+        '--search-radius',
+        type=int,
+        default=150,
+        help='Search radius in pixels for temporal tracking (default: 150)'
+    )
+    parser.add_argument(
+        '--min-contour-area',
+        type=int,
+        default=100,
+        help='Minimum contour area for green regions (default: 100)'
+    )
+    parser.add_argument(
+        '--tip-min-contour-area',
+        type=int,
+        default=None,
+        help='Minimum contour area for tip regions (default: --min-contour-area)'
+    )
+    parser.add_argument(
+        '--morph-kernel-size',
+        type=int,
+        default=5,
+        help='Morphological kernel size for mask cleanup (default: 5)'
+    )
+    parser.add_argument(
+        '--tip-morph-kernel-size',
+        type=int,
+        default=None,
+        help='Morphological kernel size for tip mask cleanup (default: --morph-kernel-size)'
+    )
+    parser.add_argument(
+        '--no-validate-tip-edges',
+        dest='validate_tip_edges',
+        action='store_false',
+        help='Disable edge-based tip validation (useful for blurred tips)'
+    )
+    parser.set_defaults(validate_tip_edges=True)
+    parser.add_argument(
+        '--min-edge-separation',
+        type=int,
+        default=15,
+        help='Minimum edge separation for tip validation (default: 15)'
+    )
+    parser.add_argument(
+        '--tip-exclude-right-pixels',
+        type=int,
+        default=None,
+        help='Exclude this many pixels from right edge for tip detection (default: --exclude-right-pixels)'
+    )
+    parser.add_argument(
+        '--tip-max-x-ratio',
+        type=float,
+        default=None,
+        help='Max X ratio for tip candidates (default: --max-x-ratio)'
+    )
+    parser.add_argument(
         '--calculate-delta-gape',
         action='store_true',
         help='Calculate delta gape (change from initial position) in addition to absolute gape'
+    )
+    parser.add_argument(
+        '--show-true-39mm',
+        action='store_true',
+        help='Show true 39mm threshold using measured initial gape (requires delta + pixels-per-mm)'
     )
     parser.add_argument(
         '--initial-gape',
@@ -140,6 +505,39 @@ def main():
     # Create output directory
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
+
+    # Apply per-sample config overrides if provided
+    applied_override = False
+    applied_default = False
+    if args.config:
+        config_path = Path(args.config)
+        config_data = load_processing_config(config_path)
+        if config_data:
+            defaults = config_data.get("defaults", {})
+            if defaults:
+                apply_config_overrides(args, defaults)
+                applied_default = True
+                print(f"Applied config defaults from {config_path}")
+            samples = config_data.get("samples", {})
+            sample_override = samples.get(video_path.stem)
+            if sample_override:
+                apply_config_overrides(args, sample_override)
+                applied_override = True
+                print(f"Applied config overrides from {config_path} for sample {video_path.stem}")
+        else:
+            print(f"Warning: Config file is empty or invalid: {config_path}")
+    elif args.sync_config:
+        config_path = Path(args.sync_config)
+        defaults, overrides = load_sync_overrides(config_path)
+        if defaults:
+            apply_sync_overrides(args, defaults)
+            applied_default = True
+            print(f"Applied sync defaults from {config_path}")
+        override_row = overrides.get(video_path.stem)
+        if override_row:
+            apply_sync_overrides(args, override_row)
+            applied_override = True
+            print(f"Applied sync overrides from {config_path} for sample {video_path.stem}")
 
     # Parse initial positions if provided
     init_shaft_pos = None
@@ -181,6 +579,41 @@ def main():
         print("Expected format: H,S,V (e.g., 55,255,255)")
         sys.exit(1)
 
+    tip_hsv_lower = None
+    if args.tip_hsv_lower:
+        try:
+            tip_hsv_lower = tuple(map(int, args.tip_hsv_lower.split(',')))
+            if len(tip_hsv_lower) != 3:
+                raise ValueError("Tip HSV lower must have 3 values")
+        except:
+            print(f"Error: Invalid tip HSV lower format: {args.tip_hsv_lower}")
+            print("Expected format: H,S,V (e.g., 44,24,158)")
+            sys.exit(1)
+
+    tip_hsv_upper = None
+    if args.tip_hsv_upper:
+        try:
+            tip_hsv_upper = tuple(map(int, args.tip_hsv_upper.split(',')))
+            if len(tip_hsv_upper) != 3:
+                raise ValueError("Tip HSV upper must have 3 values")
+        except:
+            print(f"Error: Invalid tip HSV upper format: {args.tip_hsv_upper}")
+            print("Expected format: H,S,V (e.g., 70,255,255)")
+            sys.exit(1)
+
+    tip_roi = None
+    if args.tip_roi:
+        try:
+            tip_roi = tuple(map(int, args.tip_roi.split(',')))
+            if len(tip_roi) != 4:
+                raise ValueError("Tip ROI must have 4 values")
+            if tip_roi[2] <= tip_roi[0] or tip_roi[3] <= tip_roi[1]:
+                raise ValueError("Tip ROI must have x2>x1 and y2>y1")
+        except:
+            print(f"Error: Invalid tip ROI format: {args.tip_roi}")
+            print("Expected format: x1,y1,x2,y2 (e.g., 880,620,980,740)")
+            sys.exit(1)
+
     # Determine initial gape for delta calculation
     initial_gape_mm = None
     if args.calculate_delta_gape:
@@ -203,15 +636,43 @@ def main():
     print(f"Output: {output_dir}")
     print(f"FPS: {args.fps}")
     print(f"HSV range: {hsv_lower} to {hsv_upper}")
+    if tip_hsv_lower or tip_hsv_upper:
+        tip_lower = tip_hsv_lower if tip_hsv_lower is not None else hsv_lower
+        tip_upper = tip_hsv_upper if tip_hsv_upper is not None else hsv_upper
+        print(f"Tip HSV range: {tip_lower} to {tip_upper}")
+    if tip_roi:
+        print(f"Tip ROI: {tip_roi}")
+        print(f"Tip ROI mode: {args.tip_roi_mode}")
+        if args.tip_roi_mode == "follow_prev":
+            radius = args.tip_roi_radius if args.tip_roi_radius is not None else args.search_radius
+            print(f"Tip ROI radius: {radius}")
     if args.calculate_delta_gape:
         if initial_gape_mm is not None:
             print(f"Delta gape: Enabled (using measured initial gape: {initial_gape_mm} mm)")
         else:
             print(f"Delta gape: Enabled (using first tracked frame as initial)")
+        if args.show_true_39mm and (initial_gape_mm is None or args.pixels_per_mm is None):
+            print("Warning: --show-true-39mm requires --use-datasheet-initial-gape and --pixels-per-mm")
+    elif args.show_true_39mm:
+        print("Warning: --show-true-39mm requires --calculate-delta-gape")
     if args.time_offset is not None:
         print(f"Time offset (manual): {args.time_offset} seconds")
     else:
-        print("Time offset: Auto-sync enabled")
+        print(f"Time offset: Auto-sync enabled ({args.sync_method})")
+        if args.sync_method == 'start_alignment':
+            print(
+                f"  Start thresholds: force>{args.force_threshold} N, "
+                f"stroke>{args.stroke_threshold} mm, "
+                f"video_change>{args.video_change_threshold_px} px"
+            )
+        if args.sync_method == 'drop_alignment':
+            print(f"  Drop smoothing window: {args.drop_smooth_window}")
+        if args.sync_method == 'multi_signature':
+            print(
+                f"  Signature weights: force={args.signature_force_weight}, "
+                f"stroke={args.signature_stroke_weight}, "
+                f"smooth_window={args.signature_smooth_window}"
+            )
     if init_shaft_pos and init_tip_pos:
         print(f"Manual tracking initialization:")
         print(f"  Shaft: {init_shaft_pos}")
@@ -228,7 +689,27 @@ def main():
     # Step 2: Initial video processing for time sync
     print("\n[2/4] Processing video for synchronization...")
     tracker = GreenPointTracker(hsv_lower=hsv_lower, hsv_upper=hsv_upper,
-                                 exclude_right_pixels=args.exclude_right_pixels)
+                                 use_simple_tracking=args.use_simple_tracking,
+                                 exclude_right_pixels=args.exclude_right_pixels,
+                                 min_area=args.min_area,
+                                 max_area=args.max_area,
+                                 max_x_ratio=args.max_x_ratio,
+                                 search_radius=args.search_radius,
+                                 validate_tip_edges=args.validate_tip_edges,
+                                 min_edge_separation=args.min_edge_separation,
+                                 min_contour_area=args.min_contour_area,
+                                 morph_kernel_size=args.morph_kernel_size,
+                                 tip_hsv_lower=tip_hsv_lower,
+                                 tip_hsv_upper=tip_hsv_upper,
+                                 tip_roi=tip_roi,
+                                 tip_roi_mode=args.tip_roi_mode,
+                                 tip_roi_radius=args.tip_roi_radius,
+                                 tip_min_area=args.tip_min_area,
+                                 tip_max_area=args.tip_max_area,
+                                 tip_min_contour_area=args.tip_min_contour_area,
+                                 tip_morph_kernel_size=args.tip_morph_kernel_size,
+                                 tip_exclude_right_pixels=args.tip_exclude_right_pixels,
+                                 tip_max_x_ratio=args.tip_max_x_ratio)
     analyzer = VideoAnalyzer(str(video_path), tracker)
 
     # First pass - just track points without saving video
@@ -254,7 +735,26 @@ def main():
             hsv_lower=hsv_lower,
             hsv_upper=hsv_upper,
             use_simple_tracking=True,
-            exclude_right_pixels=args.exclude_right_pixels
+            exclude_right_pixels=args.exclude_right_pixels,
+            min_area=args.min_area,
+            max_area=args.max_area,
+            max_x_ratio=args.max_x_ratio,
+            search_radius=args.search_radius,
+            validate_tip_edges=args.validate_tip_edges,
+            min_edge_separation=args.min_edge_separation,
+            min_contour_area=args.min_contour_area,
+            morph_kernel_size=args.morph_kernel_size,
+            tip_hsv_lower=tip_hsv_lower,
+            tip_hsv_upper=tip_hsv_upper,
+            tip_roi=tip_roi,
+            tip_roi_mode=args.tip_roi_mode,
+            tip_roi_radius=args.tip_roi_radius,
+            tip_min_area=args.tip_min_area,
+            tip_max_area=args.tip_max_area,
+            tip_min_contour_area=args.tip_min_contour_area,
+            tip_morph_kernel_size=args.tip_morph_kernel_size,
+            tip_exclude_right_pixels=args.tip_exclude_right_pixels,
+            tip_max_x_ratio=args.tip_max_x_ratio
         )
         analyzer_simple = VideoAnalyzer(str(video_path), tracker_simple)
         results_retry = analyzer_simple.process_video(
@@ -289,11 +789,23 @@ def main():
         print(f"Using manual time offset: {time_offset:.3f} seconds")
     else:
         # Auto-sync using peak alignment method
-        print("Searching for optimal time alignment...")
+        print(f"Searching for optimal time alignment ({args.sync_method})...")
+        search_range = (args.sync_search_min, args.sync_search_max)
         time_offset, correlation = auto_sync_video_to_mechanical(
             results,
             shimadzu_df,
-            method='peak_alignment'
+            method=args.sync_method,
+            search_range=search_range,
+            search_steps=args.sync_search_steps,
+            force_threshold=args.force_threshold,
+            stroke_threshold=args.stroke_threshold,
+            video_change_threshold_px=args.video_change_threshold_px,
+            baseline_frames=args.baseline_frames,
+            min_consecutive=args.min_consecutive,
+            drop_smooth_window=args.drop_smooth_window,
+            signature_force_weight=args.signature_force_weight,
+            signature_stroke_weight=args.signature_stroke_weight,
+            signature_smooth_window=args.signature_smooth_window
         )
         if correlation is not None:
             print(f"  Correlation: {correlation:.3f}")
@@ -322,7 +834,26 @@ def main():
             hsv_lower=hsv_lower,
             hsv_upper=hsv_upper,
             use_simple_tracking=tracker.use_simple_tracking,
-            exclude_right_pixels=args.exclude_right_pixels
+            exclude_right_pixels=args.exclude_right_pixels,
+            min_area=args.min_area,
+            max_area=args.max_area,
+            max_x_ratio=args.max_x_ratio,
+            search_radius=args.search_radius,
+            validate_tip_edges=args.validate_tip_edges,
+            min_edge_separation=args.min_edge_separation,
+            min_contour_area=args.min_contour_area,
+            morph_kernel_size=args.morph_kernel_size,
+            tip_hsv_lower=tip_hsv_lower,
+            tip_hsv_upper=tip_hsv_upper,
+            tip_roi=tip_roi,
+            tip_roi_mode=args.tip_roi_mode,
+            tip_roi_radius=args.tip_roi_radius,
+            tip_min_area=args.tip_min_area,
+            tip_max_area=args.tip_max_area,
+            tip_min_contour_area=args.tip_min_contour_area,
+            tip_morph_kernel_size=args.tip_morph_kernel_size,
+            tip_exclude_right_pixels=args.tip_exclude_right_pixels,
+            tip_max_x_ratio=args.tip_max_x_ratio
         )
         analyzer2 = VideoAnalyzer(str(video_path), tracker2)
 
@@ -339,7 +870,10 @@ def main():
             time_offset=time_offset,
             pixels_per_mm=args.pixels_per_mm,
             init_shaft_pos=shaft_init,
-            init_tip_pos=tip_init
+            init_tip_pos=tip_init,
+            display_delta_mm=args.calculate_delta_gape,
+            initial_gape_mm=initial_gape_mm if args.show_true_39mm else None,
+            show_true_39mm=args.show_true_39mm
         )
         print(f"  Annotated video saved to: {output_video_path}")
 
@@ -356,7 +890,8 @@ def main():
     plot_synchronized_data(
         synced_df,
         output_path=str(output_plot_path),
-        pixels_per_mm=args.pixels_per_mm
+        pixels_per_mm=args.pixels_per_mm,
+        show_true_39mm=args.show_true_39mm
     )
 
     # Create standard tracking plot
@@ -391,10 +926,41 @@ def main():
             'frame_skip': args.frame_skip,
             'pixels_per_mm': args.pixels_per_mm,
             'time_offset_seconds': time_offset,
-            'correlation': correlation if correlation is not None else 'manual/peak_alignment',
+            'correlation': correlation,
+            'sync_method': 'manual' if args.time_offset is not None else args.sync_method,
+            'sync_force_threshold': args.force_threshold,
+            'sync_stroke_threshold': args.stroke_threshold,
+            'sync_video_change_threshold_px': args.video_change_threshold_px,
+            'sync_baseline_frames': args.baseline_frames,
+            'sync_min_consecutive': args.min_consecutive,
+            'sync_drop_smooth_window': args.drop_smooth_window,
+            'sync_search_min': args.sync_search_min,
+            'sync_search_max': args.sync_search_max,
+            'sync_search_steps': args.sync_search_steps,
+            'sync_signature_force_weight': args.signature_force_weight,
+            'sync_signature_stroke_weight': args.signature_stroke_weight,
+            'sync_signature_smooth_window': args.signature_smooth_window,
+            'show_true_39mm': args.show_true_39mm,
+            'config_path': str(args.config) if args.config else None,
+            'config_override_applied': applied_override if args.config else False,
+            'config_default_applied': applied_default if args.config else False,
+            'sync_config': str(args.sync_config) if args.sync_config else None,
+            'sync_override_applied': applied_override if args.sync_config else False,
+            'sync_default_applied': applied_default if args.sync_config else False,
             'test_start_time': test_start_time,
             'hsv_lower': hsv_lower,
             'hsv_upper': hsv_upper,
+            'tip_hsv_lower': tip_hsv_lower,
+            'tip_hsv_upper': tip_hsv_upper,
+            'tip_roi': tip_roi,
+            'tip_roi_mode': args.tip_roi_mode,
+            'tip_roi_radius': args.tip_roi_radius,
+            'tip_min_area': args.tip_min_area,
+            'tip_max_area': args.tip_max_area,
+            'tip_min_contour_area': args.tip_min_contour_area,
+            'tip_morph_kernel_size': args.tip_morph_kernel_size,
+            'tip_exclude_right_pixels': args.tip_exclude_right_pixels,
+            'tip_max_x_ratio': args.tip_max_x_ratio,
             'calculate_delta_gape': args.calculate_delta_gape,
             'initial_gape_px': float(synced_df['Initial_Gape_px'].iloc[0]) if args.calculate_delta_gape and synced_df['Initial_Gape_px'].notna().any() else None,
             'initial_gape_mm': initial_gape_mm,

@@ -1,0 +1,196 @@
+defaults:
+  sync: {}
+  tracking: {}
+samples:
+  A17:
+    sync:
+      method: peak_alignment
+  A20:
+    sync:
+      method: peak_alignment
+  D15:
+    sync:
+      method: peak_alignment
+  D20:
+    sync:
+      method: peak_alignment
+  D7:
+    sync:
+      method: peak_alignment
+  E10:
+    sync:
+      method: peak_alignment
+  E13:
+    sync:
+      method: peak_alignment
+  E15:
+    sync:
+      method: peak_alignment
+  E17:
+    sync:
+      method: peak_alignment
+  E19:
+    sync:
+      method: peak_alignment
+  E20:
+    sync:
+      method: peak_alignment
+  E21:
+    sync:
+      method: peak_alignment
+  E23:
+    sync:
+      method: peak_alignment
+  E25:
+    sync:
+      method: peak_alignment
+  E4:
+    sync:
+      method: peak_alignment
+  E6:
+    sync:
+      method: peak_alignment
+  E8:
+    sync:
+      method: peak_alignment
+  F1:
+    sync:
+      method: peak_alignment
+  F13:
+    sync:
+      method: peak_alignment
+  F15:
+    sync:
+      method: peak_alignment
+  F16:
+    sync:
+      method: peak_alignment
+  F18:
+    sync:
+      method: peak_alignment
+  F20:
+    sync:
+      method: peak_alignment
+  F22:
+    sync:
+      method: peak_alignment
+  F24:
+    sync:
+      method: peak_alignment
+  F25:
+    sync:
+      method: peak_alignment
+  F7:
+    sync:
+      method: peak_alignment
+  F8:
+    sync:
+      method: peak_alignment
+  F9:
+    sync:
+      method: peak_alignment
+  G1:
+    sync:
+      method: peak_alignment
+  G10:
+    sync:
+      method: peak_alignment
+  G11:
+    sync:
+      method: peak_alignment
+  G13:
+    sync:
+      method: peak_alignment
+  G14:
+    sync:
+      method: peak_alignment
+  G15:
+    sync:
+      method: peak_alignment
+  G16:
+    sync:
+      method: peak_alignment
+  G17:
+    sync:
+      method: peak_alignment
+  G2:
+    sync:
+      method: peak_alignment
+  G20:
+    sync:
+      method: peak_alignment
+  G21:
+    sync:
+      method: peak_alignment
+  G23:
+    sync:
+      method: peak_alignment
+  G25:
+    sync:
+      method: peak_alignment
+  G3:
+    sync:
+      method: peak_alignment
+  G5:
+    sync:
+      method: peak_alignment
+  G6:
+    sync:
+      method: peak_alignment
+  G8:
+    sync:
+      method: peak_alignment
+  G9:
+    sync:
+      method: peak_alignment
+  H1:
+    sync:
+      method: peak_alignment
+  H11:
+    sync:
+      method: peak_alignment
+  H12:
+    sync:
+      method: peak_alignment
+  H13:
+    sync:
+      method: peak_alignment
+  H15:
+    sync:
+      method: peak_alignment
+  H16:
+    sync:
+      method: peak_alignment
+  H17:
+    sync:
+      method: peak_alignment
+  H2:
+    sync:
+      method: peak_alignment
+  H20:
+    sync:
+      method: peak_alignment
+  H22:
+    sync:
+      method: peak_alignment
+  H23:
+    sync:
+      method: peak_alignment
+  H24:
+    sync:
+      method: peak_alignment
+  H25:
+    sync:
+      method: peak_alignment
+  H5:
+    sync:
+      method: peak_alignment
+  H6:
+    sync:
+      method: peak_alignment
+  H7:
+    sync:
+      method: peak_alignment
+  H8:
+    sync:
+      method: peak_alignment

@@ -61,10 +61,57 @@ def find_test_start(shimadzu_df: pd.DataFrame,
         return 0.0
 
 
+def find_video_start(gape_data: Dict,
+                     change_threshold_px: float = 3.0,
+                     baseline_frames: int = 5,
+                     min_consecutive: int = 3) -> float:
+    """
+    Find when the video tracking starts to deviate from the initial gape.
+
+    Args:
+        gape_data: Dictionary with 'time_seconds' and 'distance_pixels'
+        change_threshold_px: Minimum absolute change (in pixels) from baseline
+        baseline_frames: Number of initial frames used to compute baseline
+        min_consecutive: Minimum consecutive frames above threshold
+
+    Returns:
+        start_time: Time in seconds when gape starts changing
+    """
+    gape_time = np.array(gape_data.get('time_seconds', []))
+    gape_dist = np.array(gape_data.get('distance_pixels', []))
+
+    if len(gape_dist) == 0:
+        return 0.0
+
+    baseline_count = min(baseline_frames, len(gape_dist))
+    baseline = np.median(gape_dist[:baseline_count])
+    delta = np.abs(gape_dist - baseline)
+
+    if min_consecutive <= 1:
+        indices = np.where(delta >= change_threshold_px)[0]
+        return gape_time[indices[0]] if len(indices) > 0 else 0.0
+
+    for idx in range(0, len(delta) - min_consecutive + 1):
+        if np.all(delta[idx:idx + min_consecutive] >= change_threshold_px):
+            return gape_time[idx]
+
+    return 0.0
+
+
 def auto_sync_video_to_mechanical(gape_data: Dict,
                                    shimadzu_df: pd.DataFrame,
                                    search_range: Tuple[float, float] = (0, 10),
-                                   method: str = 'peak_alignment') -> Tuple[float, float]:
+                                   search_steps: int = 200,
+                                   method: str = 'peak_alignment',
+                                   force_threshold: float = 0.1,
+                                   stroke_threshold: float = 0.01,
+                                   video_change_threshold_px: float = 3.0,
+                                   baseline_frames: int = 5,
+                                   min_consecutive: int = 3,
+                                   drop_smooth_window: int = 5,
+                                   signature_force_weight: float = 0.7,
+                                   signature_stroke_weight: float = 0.3,
+                                   signature_smooth_window: int = 5) -> Tuple[float, float]:
     """
     Automatically synchronize video tracking data with mechanical test data.
 
@@ -75,7 +122,18 @@ def auto_sync_video_to_mechanical(gape_data: Dict,
         gape_data: Dictionary with 'time_seconds' and 'distance_pixels'
         shimadzu_df: DataFrame with mechanical test data
         search_range: (min_offset, max_offset) in seconds to search for best alignment
-        method: 'peak_alignment' (align max gape with peak force) or 'correlation' (old method)
+        method: 'peak_alignment' (align max gape with peak force), 'start_alignment'
+                (align start of movement), 'drop_alignment' (align sharp drop),
+                'multi_signature' (align shape signatures), or 'correlation' (rate-based)
+        force_threshold: Force threshold in N for start alignment
+        stroke_threshold: Stroke threshold in mm for start alignment
+        video_change_threshold_px: Pixel change threshold for video start alignment
+        baseline_frames: Number of frames used to compute baseline
+        min_consecutive: Minimum consecutive frames above threshold
+        drop_smooth_window: Smoothing window for drop alignment (frames/samples)
+        signature_force_weight: Weight for force rate signature in multi_signature
+        signature_stroke_weight: Weight for stroke rate signature in multi_signature
+        signature_smooth_window: Smoothing window for multi_signature (samples)
 
     Returns:
         best_offset: Time offset in seconds (add to video time to get mechanical time)
@@ -86,6 +144,116 @@ def auto_sync_video_to_mechanical(gape_data: Dict,
 
     if len(gape_dist) < 2:
         return 0.0, 0.0
+
+    if method == 'start_alignment':
+        mech_start_time = find_test_start(
+            shimadzu_df,
+            force_threshold=force_threshold,
+            stroke_threshold=stroke_threshold
+        )
+        video_start_time = find_video_start(
+            gape_data,
+            change_threshold_px=video_change_threshold_px,
+            baseline_frames=baseline_frames,
+            min_consecutive=min_consecutive
+        )
+        best_offset = mech_start_time - video_start_time
+
+        print("Start alignment sync:")
+        print(f"  Video start at: {video_start_time:.2f}s (threshold={video_change_threshold_px:.2f} px)")
+        print(f"  Mechanical start at: {mech_start_time:.2f}s (F>{force_threshold} N, stroke>{stroke_threshold} mm)")
+        print(f"  Calculated offset: {best_offset:.2f}s")
+
+        return best_offset, None
+
+    if method == 'drop_alignment':
+        def _smooth_series(series: np.ndarray, window: int) -> np.ndarray:
+            if window <= 1 or len(series) < window:
+                return series
+            kernel = np.ones(window) / window
+            return np.convolve(series, kernel, mode='same')
+
+        def _find_drop_time(time: np.ndarray, series: np.ndarray, window: int) -> float:
+            if len(series) < 2:
+                return 0.0
+            smoothed = _smooth_series(series, window)
+            diff = np.diff(smoothed)
+            if len(diff) == 0:
+                return 0.0
+            drop_idx = np.argmin(diff)
+            return time[1:][drop_idx]
+
+        force_time = shimadzu_df['Time'].values
+        force_series = shimadzu_df['Force'].values
+        drop_force_time = _find_drop_time(force_time, force_series, drop_smooth_window)
+
+        gape_time = np.array(gape_data['time_seconds'])
+        gape_series = np.array(gape_data['distance_pixels'])
+        drop_gape_time = _find_drop_time(gape_time, gape_series, drop_smooth_window)
+
+        best_offset = drop_force_time - drop_gape_time
+
+        print("Drop alignment sync:")
+        print(f"  Video drop at: {drop_gape_time:.2f}s")
+        print(f"  Mechanical drop at: {drop_force_time:.2f}s")
+        print(f"  Calculated offset: {best_offset:.2f}s")
+
+        return best_offset, None
+
+    if method == 'multi_signature':
+        def _normalize(series: np.ndarray) -> np.ndarray:
+            series = np.array(series, dtype=float)
+            mean = np.nanmean(series)
+            std = np.nanstd(series)
+            if std == 0 or np.isnan(std):
+                return np.zeros_like(series)
+            return (series - mean) / std
+
+        def _smooth_series(series: np.ndarray, window: int) -> np.ndarray:
+            if window <= 1 or len(series) < window:
+                return series
+            kernel = np.ones(window) / window
+            return np.convolve(series, kernel, mode='same')
+
+        if len(gape_dist) < 2:
+            return 0.0, 0.0
+
+        gape_rate = np.gradient(gape_dist, gape_time)
+        force_rate = np.gradient(shimadzu_df['Force'].values, shimadzu_df['Time'].values)
+        stroke_rate = np.gradient(shimadzu_df['Stroke'].values, shimadzu_df['Time'].values)
+
+        force_sig = _normalize(_smooth_series(force_rate, signature_smooth_window))
+        stroke_sig = _normalize(_smooth_series(stroke_rate, signature_smooth_window))
+        mech_signature = (signature_force_weight * force_sig) + (signature_stroke_weight * stroke_sig)
+        mech_signature = _normalize(mech_signature)
+
+        video_signature = _normalize(_smooth_series(gape_rate, signature_smooth_window))
+
+        offsets = np.linspace(search_range[0], search_range[1], search_steps)
+        correlations = []
+        mech_time = shimadzu_df['Time'].values
+
+        for offset in offsets:
+            shifted_video_time = gape_time + offset
+            video_interp = np.interp(
+                mech_time,
+                shifted_video_time,
+                video_signature,
+                left=np.nan, right=np.nan
+            )
+            valid_mask = np.isfinite(video_interp) & np.isfinite(mech_signature)
+            if valid_mask.sum() > 10:
+                corr = np.corrcoef(video_interp[valid_mask],
+                                  mech_signature[valid_mask])[0, 1]
+                correlations.append(corr if not np.isnan(corr) else 0)
+            else:
+                correlations.append(0)
+
+        best_idx = np.argmax(correlations)
+        best_offset = offsets[best_idx]
+        best_corr = correlations[best_idx]
+
+        return best_offset, best_corr
 
     if method == 'peak_alignment':
         # Find point of maximum gape (just before failure)
@@ -115,7 +283,7 @@ def auto_sync_video_to_mechanical(gape_data: Dict,
         stroke_rate = stroke_rate.fillna(0)
 
         # Search for best offset
-        offsets = np.linspace(search_range[0], search_range[1], 100)
+        offsets = np.linspace(search_range[0], search_range[1], search_steps)
         correlations = []
 
         for offset in offsets:
@@ -183,6 +351,8 @@ def sync_data(gape_data: Dict,
     synced_df['Gape_Distance_px'] = gape_interp
     synced_df['Video_Time_Offset'] = time_offset
 
+    initial_gape_px = None
+
     # Calculate delta gape if requested
     if calculate_delta and len(gape_dist) > 0:
         # Determine initial gape
@@ -204,12 +374,26 @@ def sync_data(gape_data: Dict,
         synced_df['Initial_Gape_mm'] = np.nan
         synced_df['Delta_Gape_px'] = np.nan
 
+    if pixels_per_mm:
+        synced_df['Gape_Distance_mm'] = synced_df['Gape_Distance_px'] / pixels_per_mm
+        if initial_gape_px is not None and initial_gape_mm is not None:
+            synced_df['Gape_Distance_mm_corrected'] = (
+                initial_gape_mm + (synced_df['Gape_Distance_px'] - initial_gape_px) / pixels_per_mm
+            )
+        else:
+            synced_df['Gape_Distance_mm_corrected'] = np.nan
+    else:
+        synced_df['Gape_Distance_mm'] = np.nan
+        synced_df['Gape_Distance_mm_corrected'] = np.nan
+
     return synced_df
 
 
 def plot_synchronized_data(synced_df: pd.DataFrame,
                            output_path: Optional[str] = None,
-                           pixels_per_mm: Optional[float] = None):
+                           pixels_per_mm: Optional[float] = None,
+                           show_true_39mm: bool = False,
+                           target_gape_mm: float = 39.0):
     """
     Create comprehensive plot of synchronized gape and mechanical data.
 
@@ -246,14 +430,23 @@ def plot_synchronized_data(synced_df: pd.DataFrame,
     # Plot 3: Gape Distance vs Time (with secondary axis for Force)
     ax3a = axes[2]
 
-    # Gape distance
-    valid_gape = synced_df['Gape_Distance_px'].notna()
-    gape_label = 'Gape Distance (px)'
-    gape_data = synced_df.loc[valid_gape, 'Gape_Distance_px']
-
-    if pixels_per_mm:
-        gape_data = gape_data / pixels_per_mm
-        gape_label = 'Gape Distance (mm)'
+    # Gape distance (prefer corrected mm if available)
+    use_corrected = (
+        pixels_per_mm
+        and 'Gape_Distance_mm_corrected' in synced_df.columns
+        and synced_df['Gape_Distance_mm_corrected'].notna().any()
+    )
+    if use_corrected:
+        valid_gape = synced_df['Gape_Distance_mm_corrected'].notna()
+        gape_data = synced_df.loc[valid_gape, 'Gape_Distance_mm_corrected']
+        gape_label = 'Gape Distance (mm, corrected)'
+    else:
+        valid_gape = synced_df['Gape_Distance_px'].notna()
+        gape_data = synced_df.loc[valid_gape, 'Gape_Distance_px']
+        gape_label = 'Gape Distance (px)'
+        if pixels_per_mm:
+            gape_data = gape_data / pixels_per_mm
+            gape_label = 'Gape Distance (mm)'
 
     ax3a.plot(synced_df.loc[valid_gape, 'Time'], gape_data,
              'r-', linewidth=2, label='Gape Distance')
@@ -263,6 +456,13 @@ def plot_synchronized_data(synced_df: pd.DataFrame,
     if not has_delta:
         ax3a.set_xlabel('Time (seconds)', fontsize=11, fontweight='bold')
     ax3a.set_title('Hook Gape vs Force', fontsize=11)
+
+    t_39 = None
+    if show_true_39mm and use_corrected:
+        target_mask = gape_data >= target_gape_mm
+        if target_mask.any():
+            t_39 = synced_df.loc[gape_data.index[target_mask], 'Time'].iloc[0]
+            ax3a.axhline(target_gape_mm, color='gray', linestyle='--', linewidth=1.2, alpha=0.6)
 
     # Force on secondary axis
     ax3b = ax3a.twinx()
@@ -305,6 +505,10 @@ def plot_synchronized_data(synced_df: pd.DataFrame,
         lines1, labels1 = ax4a.get_legend_handles_labels()
         lines2, labels2 = ax4b.get_legend_handles_labels()
         ax4a.legend(lines1 + lines2, labels1 + labels2, loc='upper left')
+
+    if t_39 is not None:
+        for ax in axes:
+            ax.axvline(t_39, color='gray', linestyle='--', linewidth=1.2, alpha=0.6)
 
     plt.tight_layout()
 

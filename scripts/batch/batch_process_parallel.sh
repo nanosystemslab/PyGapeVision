@@ -11,9 +11,29 @@
 VIDEO_BASE="data/Video"
 CSV_BASE="data/Shimadzu"
 OUTPUT_BASE="results/batch"
-FPS=30
-FRAME_SKIP=10
-PIXELS_PER_MM="12.103"
+FPS="${FPS:-30}"
+FRAME_SKIP="${FRAME_SKIP:-10}"
+PIXELS_PER_MM="${PIXELS_PER_MM:-12.103}"
+SYNC_METHOD="${SYNC_METHOD:-multi_signature}"
+SYNC_SEARCH_MIN="${SYNC_SEARCH_MIN:--30}"
+SYNC_SEARCH_MAX="${SYNC_SEARCH_MAX:-30}"
+SYNC_SEARCH_STEPS="${SYNC_SEARCH_STEPS:-200}"
+SIGNATURE_FORCE_WEIGHT="${SIGNATURE_FORCE_WEIGHT:-0.7}"
+SIGNATURE_STROKE_WEIGHT="${SIGNATURE_STROKE_WEIGHT:-0.3}"
+SIGNATURE_SMOOTH_WINDOW="${SIGNATURE_SMOOTH_WINDOW:-5}"
+SHOW_TRUE_39MM="${SHOW_TRUE_39MM:---show-true-39mm}"
+CONFIG_YAML="${CONFIG_YAML:-configs/processing_config.yaml}"
+CONFIG_YAML_ARG=""
+if [ -f "$CONFIG_YAML" ]; then
+    CONFIG_YAML_ARG="--config $CONFIG_YAML"
+fi
+SYNC_CONFIG="${SYNC_CONFIG:-configs/sync_overrides.csv}"
+SYNC_CONFIG_ARG=""
+if [ -f "$SYNC_CONFIG" ] && [ -z "$CONFIG_YAML_ARG" ]; then
+    SYNC_CONFIG_ARG="--sync-config $SYNC_CONFIG"
+fi
+SYNC_SKIP_OVERRIDES="${SYNC_SKIP_OVERRIDES:-0}"
+SYNC_INCLUDE_CONFIG="${SYNC_INCLUDE_CONFIG:-0}"
 
 # Parallel processing settings
 NUM_JOBS=10  # Number of videos to process simultaneously
@@ -69,8 +89,18 @@ process_video() {
         --frame-skip $FRAME_SKIP \
         --fps $FPS \
         --output-dir \"$output_dir\" \
+        $CONFIG_YAML_ARG \
+        $SYNC_CONFIG_ARG \
+        --sync-method $SYNC_METHOD \
+        --sync-search-min $SYNC_SEARCH_MIN \
+        --sync-search-max $SYNC_SEARCH_MAX \
+        --sync-search-steps $SYNC_SEARCH_STEPS \
+        --signature-force-weight $SIGNATURE_FORCE_WEIGHT \
+        --signature-stroke-weight $SIGNATURE_STROKE_WEIGHT \
+        --signature-smooth-window $SIGNATURE_SMOOTH_WINDOW \
         --calculate-delta-gape \
         --use-datasheet-initial-gape \
+        $SHOW_TRUE_39MM \
         --exclude-right-pixels 400 \
         $SKIP_VIDEO"
 
@@ -108,6 +138,11 @@ process_video() {
 # Export function and variables for parallel
 export -f process_video
 export VIDEO_BASE CSV_BASE OUTPUT_BASE FPS FRAME_SKIP PIXELS_PER_MM SKIP_VIDEO
+export SYNC_METHOD SYNC_SEARCH_MIN SYNC_SEARCH_MAX SYNC_SEARCH_STEPS
+export SIGNATURE_FORCE_WEIGHT SIGNATURE_STROKE_WEIGHT SIGNATURE_SMOOTH_WINDOW
+export SHOW_TRUE_39MM
+export CONFIG_YAML CONFIG_YAML_ARG
+export SYNC_CONFIG SYNC_CONFIG_ARG SYNC_SKIP_OVERRIDES SYNC_INCLUDE_CONFIG
 
 # Check if GNU parallel is installed
 if ! command -v parallel &> /dev/null; then
@@ -140,7 +175,83 @@ for batch_dir in "$VIDEO_BASE"/*; do
     done
 done
 
-total_videos=$(wc -l < "$pairs_file" | tr -d ' ')
+filtered_pairs_file="$pairs_file"
+skip_file=""
+include_file=""
+processed_samples_file=""
+
+write_sample_list() {
+    local config_path="$1"
+    local output_path="$2"
+    if [[ "$config_path" == *.yaml || "$config_path" == *.yml ]]; then
+        python - "$config_path" "$output_path" <<'PY'
+import sys
+from pathlib import Path
+import yaml
+
+config_path = Path(sys.argv[1])
+output_path = Path(sys.argv[2])
+data = {}
+if config_path.exists():
+    with config_path.open("r") as f:
+        data = yaml.safe_load(f) or {}
+samples = data.get("samples", {}) or {}
+with output_path.open("w") as f:
+    for sample in samples.keys():
+        if sample:
+            f.write(f"{sample}\n")
+PY
+    else
+        awk -F, 'NR > 1 && $1 != "" {gsub(/\r/, "", $1); print $1}' "$config_path" > "$output_path"
+    fi
+}
+
+config_for_filter="$SYNC_CONFIG"
+if [ -f "$CONFIG_YAML" ]; then
+    config_for_filter="$CONFIG_YAML"
+fi
+
+if [ "$SYNC_INCLUDE_CONFIG" = "1" ] && [ -f "$config_for_filter" ]; then
+    include_file=$(mktemp)
+    write_sample_list "$config_for_filter" "$include_file"
+    if [ -s "$include_file" ]; then
+        filtered_pairs_file=$(mktemp)
+        awk -F'|' 'NR==FNR {include[$1]=1; next} {
+            video=$1;
+            n=split(video, parts, "/");
+            name=parts[n];
+            sub(/\.mp4$/, "", name);
+            if (include[name]) print $0
+        }' "$include_file" "$pairs_file" > "$filtered_pairs_file"
+    else
+        echo "ERROR: SYNC_INCLUDE_CONFIG set but no samples found in $SYNC_CONFIG"
+        exit 1
+    fi
+elif [ "$SYNC_SKIP_OVERRIDES" = "1" ] && [ -f "$config_for_filter" ]; then
+    skip_file=$(mktemp)
+    write_sample_list "$config_for_filter" "$skip_file"
+    if [ -s "$skip_file" ]; then
+        filtered_pairs_file=$(mktemp)
+        awk -F'|' 'NR==FNR {skip[$1]=1; next} {
+            video=$1;
+            n=split(video, parts, "/");
+            name=parts[n];
+            sub(/\.mp4$/, "", name);
+            if (!skip[name]) print $0
+        }' "$skip_file" "$pairs_file" > "$filtered_pairs_file"
+    fi
+fi
+
+processed_samples_file=$(mktemp)
+awk -F'|' '{
+    video=$1;
+    n=split(video, parts, "/");
+    name=parts[n];
+    sub(/\.mp4$/, "", name);
+    print name
+}' "$filtered_pairs_file" > "$processed_samples_file"
+
+total_videos=$(wc -l < "$filtered_pairs_file" | tr -d ' ')
 echo "Found $total_videos videos to process"
 echo ""
 echo "Starting parallel processing with $NUM_JOBS jobs..."
@@ -149,10 +260,19 @@ echo ""
 
 # Process in parallel
 # Pass each line as a single argument to process_video
-cat "$pairs_file" | parallel -j "$NUM_JOBS" --bar process_video {}
+cat "$filtered_pairs_file" | parallel -j "$NUM_JOBS" --bar process_video {}
 
 # Clean up temp file
 rm "$pairs_file"
+if [ "$filtered_pairs_file" != "$pairs_file" ]; then
+    rm "$filtered_pairs_file"
+fi
+if [ -n "$skip_file" ]; then
+    rm "$skip_file"
+fi
+if [ -n "$include_file" ]; then
+    rm "$include_file"
+fi
 
 # Generate summary report
 echo ""
@@ -178,6 +298,11 @@ for batch_dir in "$OUTPUT_BASE"/Batch_*; do
         fi
 
         sample_name=$(basename "$sample_dir")
+        if [ -n "$processed_samples_file" ]; then
+            if ! grep -qx "$sample_name" "$processed_samples_file"; then
+                continue
+            fi
+        fi
         csv_file="${sample_dir}/${sample_name}_synchronized.csv"
 
         if [ -f "$csv_file" ]; then
@@ -192,6 +317,10 @@ for batch_dir in "$OUTPUT_BASE"/Batch_*; do
         fi
     done
 done
+
+if [ -n "$processed_samples_file" ]; then
+    rm "$processed_samples_file"
+fi
 
 echo "Summary:"
 echo "  Total: $total_videos"

@@ -7,6 +7,7 @@ Extracts:
 - Force at 39mm Gape
 - Time to failure (max force)
 - Gape at Failure
+- Force at Failure
 - Initial Gape (if delta calculated)
 - Delta Gape at Failure (if delta calculated)
 
@@ -33,6 +34,17 @@ def natural_sort_key(s):
             for text in re.split('([0-9]+)', s)]
 
 
+def _get_gape_mm_series(df, pixels_per_mm):
+    """Return the best available gape series in mm (corrected preferred)."""
+    if 'Gape_Distance_mm_corrected' in df.columns and df['Gape_Distance_mm_corrected'].notna().any():
+        return df['Gape_Distance_mm_corrected']
+    if 'Gape_Distance_mm' in df.columns and df['Gape_Distance_mm'].notna().any():
+        return df['Gape_Distance_mm']
+    if pixels_per_mm and 'Gape_Distance_px' in df.columns:
+        return df['Gape_Distance_px'] / pixels_per_mm
+    return None
+
+
 def find_time_to_gape(df, target_total_gape_mm, pixels_per_mm):
     """
     Find the time when gape first reaches target value using delta gape.
@@ -45,6 +57,13 @@ def find_time_to_gape(df, target_total_gape_mm, pixels_per_mm):
     Returns:
         Time in seconds, or None if not reached
     """
+    gape_mm = _get_gape_mm_series(df, pixels_per_mm)
+    if gape_mm is not None:
+        matches = df[gape_mm >= target_total_gape_mm]
+        if len(matches) == 0:
+            return None
+        return matches.iloc[0]['Time']
+
     # Check if Delta_Gape_px column exists
     if 'Delta_Gape_px' not in df.columns or 'Initial_Gape_px' not in df.columns:
         return None
@@ -79,6 +98,13 @@ def find_force_at_gape(df, target_total_gape_mm, pixels_per_mm):
     Returns:
         Force in N, or None if not reached
     """
+    gape_mm = _get_gape_mm_series(df, pixels_per_mm)
+    if gape_mm is not None:
+        matches = df[gape_mm >= target_total_gape_mm]
+        if len(matches) == 0:
+            return None
+        return matches.iloc[0]['Force']
+
     # Check if Delta_Gape_px column exists
     if 'Delta_Gape_px' not in df.columns or 'Initial_Gape_px' not in df.columns:
         return None
@@ -103,23 +129,27 @@ def find_force_at_gape(df, target_total_gape_mm, pixels_per_mm):
 
 def find_failure_metrics(df, pixels_per_mm):
     """
-    Find time and gape at failure (maximum force).
-    
+    Find time, gape, and force at failure (maximum force).
+
     Args:
         df: DataFrame with Time, Force, and Gape_Distance_px columns
         pixels_per_mm: Calibration factor
-    
+
     Returns:
-        (time_at_failure, gape_at_failure_mm)
+        (time_at_failure, gape_at_failure_mm, force_at_failure)
     """
     # Find row with maximum force
     max_force_idx = df['Force'].idxmax()
     max_force_row = df.loc[max_force_idx]
-    
+
     time_at_failure = max_force_row['Time']
-    gape_at_failure_mm = max_force_row['Gape_Distance_px'] / pixels_per_mm
-    
-    return time_at_failure, gape_at_failure_mm
+    gape_mm = _get_gape_mm_series(df, pixels_per_mm)
+    gape_at_failure_mm = (
+        gape_mm.loc[max_force_idx] if gape_mm is not None else max_force_row['Gape_Distance_px'] / pixels_per_mm
+    )
+    force_at_failure = max_force_row['Force']
+
+    return time_at_failure, gape_at_failure_mm, force_at_failure
 
 
 def collect_sample_metrics(csv_path, sample_name, pixels_per_mm, target_gape_mm=39.0):
@@ -142,14 +172,15 @@ def collect_sample_metrics(csv_path, sample_name, pixels_per_mm, target_gape_mm=
         # Calculate absolute gape metrics
         time_to_39mm = find_time_to_gape(df, target_gape_mm, pixels_per_mm)
         force_at_39mm = find_force_at_gape(df, target_gape_mm, pixels_per_mm)
-        time_at_failure, gape_at_failure = find_failure_metrics(df, pixels_per_mm)
+        time_at_failure, gape_at_failure, force_at_failure = find_failure_metrics(df, pixels_per_mm)
 
         metrics = {
             'Sample': sample_name,
             'Time_to_39mm_Gape_s': time_to_39mm,
             'Force_at_39mm_Gape_N': force_at_39mm,
             'Time_to_Failure_s': time_at_failure,
-            'Gape_at_Failure_mm': gape_at_failure
+            'Gape_at_Failure_mm': gape_at_failure,
+            'Force_at_Failure_N': force_at_failure
         }
 
         # Check for delta gape columns and add delta metrics if available
@@ -176,7 +207,8 @@ def collect_sample_metrics(csv_path, sample_name, pixels_per_mm, target_gape_mm=
             'Time_to_39mm_Gape_s': None,
             'Force_at_39mm_Gape_N': None,
             'Time_to_Failure_s': None,
-            'Gape_at_Failure_mm': None
+            'Gape_at_Failure_mm': None,
+            'Force_at_Failure_N': None
         }
         # Try to determine if delta columns should be present
         try:
@@ -220,6 +252,7 @@ def main():
             'Force_at_39mm_Gape_N': None,
             'Time_to_Failure_s': None,
             'Gape_at_Failure_mm': None,
+            'Force_at_Failure_N': None,
             'Initial_Gape_mm': None,
             'Delta_Gape_at_Failure_mm': None
         }

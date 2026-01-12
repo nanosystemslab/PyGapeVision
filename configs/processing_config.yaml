@@ -17,6 +17,38 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: &id001
+      - 35
+      - 100
+      - 50
+      hsv_upper: &id002
+      - 55
+      - 255
+      - 255
   A10:
     sync:
       method: multi_signature
@@ -32,6 +64,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   A11:
     sync:
       method: drop_alignment
@@ -47,6 +105,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   A13:
     sync:
       method: drop_alignment
@@ -62,6 +146,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   A14:
     sync:
       method: drop_alignment
@@ -77,21 +187,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  A15:
-    sync:
-      method: multi_signature
-      drop_smooth_window: 5
-      search_min: -30.0
-      search_max: 30.0
-      search_steps: 200
-      signature_force_weight: 0.7
-      signature_stroke_weight: 0.3
-      signature_smooth_window: 5
-      force_threshold: 0.1
-      stroke_threshold: 0.01
-      video_change_threshold_px: 3.0
-      baseline_frames: 5
-      min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   A16:
     sync:
       method: drop_alignment
@@ -107,7 +228,40 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  A18:
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
+  A17:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
     sync:
       method: multi_signature
       drop_smooth_window: 5
@@ -122,6 +276,47 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 736
+      - 448
+      init_tip_pos:
+      - 917
+      - 716
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 736
+        - 448
+        tip_pos:
+        - 917
+        - 716
   A19:
     sync:
       method: drop_alignment
@@ -137,6 +332,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   A2:
     sync:
       method: drop_alignment
@@ -152,6 +373,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   A21:
     sync:
       method: drop_alignment
@@ -167,36 +414,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  A22:
-    sync:
-      method: multi_signature
-      drop_smooth_window: 5
-      search_min: -30.0
-      search_max: 30.0
-      search_steps: 200
-      signature_force_weight: 0.7
-      signature_stroke_weight: 0.3
-      signature_smooth_window: 5
-      force_threshold: 0.1
-      stroke_threshold: 0.01
-      video_change_threshold_px: 3.0
-      baseline_frames: 5
-      min_consecutive: 3
-  A23:
-    sync:
-      method: drop_alignment
-      drop_smooth_window: 5
-      search_min: -30.0
-      search_max: 30.0
-      search_steps: 200
-      signature_force_weight: 0.7
-      signature_stroke_weight: 0.3
-      signature_smooth_window: 5
-      force_threshold: 0.1
-      stroke_threshold: 0.01
-      video_change_threshold_px: 3.0
-      baseline_frames: 5
-      min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   A24:
     sync:
       method: drop_alignment
@@ -212,6 +455,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   A25:
     sync:
       method: multi_signature
@@ -227,36 +496,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  A3:
-    sync:
-      method: multi_signature
-      drop_smooth_window: 5
-      search_min: -30.0
-      search_max: 30.0
-      search_steps: 200
-      signature_force_weight: 0.7
-      signature_stroke_weight: 0.3
-      signature_smooth_window: 5
-      force_threshold: 0.1
-      stroke_threshold: 0.01
-      video_change_threshold_px: 3.0
-      baseline_frames: 5
-      min_consecutive: 3
-  A4:
-    sync:
-      method: multi_signature
-      drop_smooth_window: 5
-      search_min: -30.0
-      search_max: 30.0
-      search_steps: 200
-      signature_force_weight: 0.7
-      signature_stroke_weight: 0.3
-      signature_smooth_window: 5
-      force_threshold: 0.1
-      stroke_threshold: 0.01
-      video_change_threshold_px: 3.0
-      baseline_frames: 5
-      min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   A5:
     sync:
       method: drop_alignment
@@ -272,21 +537,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  A6:
-    sync:
-      method: multi_signature
-      drop_smooth_window: 5
-      search_min: -30.0
-      search_max: 30.0
-      search_steps: 200
-      signature_force_weight: 0.7
-      signature_stroke_weight: 0.3
-      signature_smooth_window: 5
-      force_threshold: 0.1
-      stroke_threshold: 0.01
-      video_change_threshold_px: 3.0
-      baseline_frames: 5
-      min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   A7:
     sync:
       method: drop_alignment
@@ -302,6 +578,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   A8:
     sync:
       method: drop_alignment
@@ -317,6 +619,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   A9:
     sync:
       method: drop_alignment
@@ -332,6 +660,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B10:
     sync:
       method: drop_alignment
@@ -347,21 +701,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  B11:
-    sync:
-      method: multi_signature
-      drop_smooth_window: 5
-      search_min: -30.0
-      search_max: 30.0
-      search_steps: 200
-      signature_force_weight: 0.7
-      signature_stroke_weight: 0.3
-      signature_smooth_window: 5
-      force_threshold: 0.1
-      stroke_threshold: 0.01
-      video_change_threshold_px: 3.0
-      baseline_frames: 5
-      min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B12:
     sync:
       method: drop_alignment
@@ -377,6 +742,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B13:
     sync:
       method: drop_alignment
@@ -392,6 +783,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B14:
     sync:
       method: drop_alignment
@@ -407,6 +824,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B15:
     sync:
       method: drop_alignment
@@ -422,21 +865,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  B16:
-    sync:
-      method: multi_signature
-      drop_smooth_window: 5
-      search_min: -30.0
-      search_max: 30.0
-      search_steps: 200
-      signature_force_weight: 0.7
-      signature_stroke_weight: 0.3
-      signature_smooth_window: 5
-      force_threshold: 0.1
-      stroke_threshold: 0.01
-      video_change_threshold_px: 3.0
-      baseline_frames: 5
-      min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B17:
     sync:
       method: drop_alignment
@@ -452,6 +906,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B18:
     sync:
       method: multi_signature
@@ -467,6 +947,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B19:
     sync:
       method: drop_alignment
@@ -482,6 +988,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B2:
     sync:
       method: drop_alignment
@@ -497,6 +1029,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B20:
     sync:
       method: drop_alignment
@@ -512,6 +1070,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B21:
     sync:
       method: drop_alignment
@@ -527,6 +1111,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B22:
     sync:
       method: drop_alignment
@@ -542,6 +1152,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B23:
     sync:
       method: drop_alignment
@@ -557,6 +1193,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B24:
     sync:
       method: drop_alignment
@@ -572,6 +1234,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B25:
     sync:
       method: drop_alignment
@@ -587,6 +1275,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B3:
     sync:
       method: drop_alignment
@@ -602,6 +1316,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B4:
     sync:
       method: drop_alignment
@@ -617,6 +1357,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B5:
     sync:
       method: drop_alignment
@@ -632,6 +1398,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B6:
     sync:
       method: drop_alignment
@@ -647,6 +1439,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B7:
     sync:
       method: drop_alignment
@@ -662,6 +1480,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B8:
     sync:
       method: drop_alignment
@@ -677,6 +1521,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   B9:
     sync:
       method: multi_signature
@@ -692,6 +1562,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C1:
     sync:
       method: drop_alignment
@@ -707,21 +1603,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  C10:
-    sync:
-      method: multi_signature
-      drop_smooth_window: 5
-      search_min: -30.0
-      search_max: 30.0
-      search_steps: 200
-      signature_force_weight: 0.7
-      signature_stroke_weight: 0.3
-      signature_smooth_window: 5
-      force_threshold: 0.1
-      stroke_threshold: 0.01
-      video_change_threshold_px: 3.0
-      baseline_frames: 5
-      min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C11:
     sync:
       method: drop_alignment
@@ -737,6 +1644,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C12:
     sync:
       method: drop_alignment
@@ -752,6 +1685,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C13:
     sync:
       method: drop_alignment
@@ -767,6 +1726,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C14:
     sync:
       method: multi_signature
@@ -782,6 +1767,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C15:
     sync:
       method: multi_signature
@@ -797,6 +1808,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C16:
     sync:
       method: drop_alignment
@@ -812,6 +1849,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C17:
     sync:
       method: drop_alignment
@@ -827,6 +1890,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C18:
     sync:
       method: drop_alignment
@@ -842,6 +1931,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C19:
     sync:
       method: drop_alignment
@@ -857,6 +1972,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C2:
     sync:
       method: multi_signature
@@ -872,21 +2013,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  C20:
-    sync:
-      method: multi_signature
-      drop_smooth_window: 5
-      search_min: -30.0
-      search_max: 30.0
-      search_steps: 200
-      signature_force_weight: 0.7
-      signature_stroke_weight: 0.3
-      signature_smooth_window: 5
-      force_threshold: 0.1
-      stroke_threshold: 0.01
-      video_change_threshold_px: 3.0
-      baseline_frames: 5
-      min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C21:
     sync:
       method: drop_alignment
@@ -902,6 +2054,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C22:
     sync:
       method: multi_signature
@@ -917,6 +2095,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C23:
     sync:
       method: drop_alignment
@@ -932,6 +2136,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C24:
     sync:
       method: multi_signature
@@ -947,6 +2177,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C25:
     sync:
       method: drop_alignment
@@ -962,6 +2218,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C3:
     sync:
       method: multi_signature
@@ -977,6 +2259,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C4:
     sync:
       method: drop_alignment
@@ -992,21 +2300,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  C5:
-    sync:
-      method: multi_signature
-      drop_smooth_window: 5
-      search_min: -30.0
-      search_max: 30.0
-      search_steps: 200
-      signature_force_weight: 0.7
-      signature_stroke_weight: 0.3
-      signature_smooth_window: 5
-      force_threshold: 0.1
-      stroke_threshold: 0.01
-      video_change_threshold_px: 3.0
-      baseline_frames: 5
-      min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C6:
     sync:
       method: drop_alignment
@@ -1022,36 +2341,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  C7:
-    sync:
-      method: multi_signature
-      drop_smooth_window: 5
-      search_min: -30.0
-      search_max: 30.0
-      search_steps: 200
-      signature_force_weight: 0.7
-      signature_stroke_weight: 0.3
-      signature_smooth_window: 5
-      force_threshold: 0.1
-      stroke_threshold: 0.01
-      video_change_threshold_px: 3.0
-      baseline_frames: 5
-      min_consecutive: 3
-  C8:
-    sync:
-      method: multi_signature
-      drop_smooth_window: 5
-      search_min: -30.0
-      search_max: 30.0
-      search_steps: 200
-      signature_force_weight: 0.7
-      signature_stroke_weight: 0.3
-      signature_smooth_window: 5
-      force_threshold: 0.1
-      stroke_threshold: 0.01
-      video_change_threshold_px: 3.0
-      baseline_frames: 5
-      min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   C9:
     sync:
       method: drop_alignment
@@ -1067,6 +2382,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D1:
     sync:
       method: drop_alignment
@@ -1082,6 +2423,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D10:
     sync:
       method: drop_alignment
@@ -1097,6 +2464,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D11:
     sync:
       method: drop_alignment
@@ -1112,21 +2505,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  D12:
-    sync:
-      method: multi_signature
-      drop_smooth_window: 5
-      search_min: -30.0
-      search_max: 30.0
-      search_steps: 200
-      signature_force_weight: 0.7
-      signature_stroke_weight: 0.3
-      signature_smooth_window: 5
-      force_threshold: 0.1
-      stroke_threshold: 0.01
-      video_change_threshold_px: 3.0
-      baseline_frames: 5
-      min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D14:
     sync:
       method: drop_alignment
@@ -1142,6 +2546,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D16:
     sync:
       method: drop_alignment
@@ -1157,6 +2587,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D17:
     sync:
       method: drop_alignment
@@ -1172,6 +2628,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D18:
     sync:
       method: drop_alignment
@@ -1187,6 +2669,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D19:
     sync:
       method: drop_alignment
@@ -1202,6 +2710,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D2:
     sync:
       method: drop_alignment
@@ -1217,6 +2751,95 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
+  D20:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 809
+      - 427
+      init_tip_pos:
+      - 967
+      - 701
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 809
+        - 427
+        tip_pos:
+        - 967
+        - 701
   D21:
     sync:
       method: drop_alignment
@@ -1232,6 +2855,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D22:
     sync:
       method: drop_alignment
@@ -1247,6 +2896,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D23:
     sync:
       method: drop_alignment
@@ -1262,6 +2937,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D24:
     sync:
       method: drop_alignment
@@ -1277,6 +2978,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D25:
     sync:
       method: multi_signature
@@ -1292,6 +3019,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D3:
     sync:
       method: drop_alignment
@@ -1307,6 +3060,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D4:
     sync:
       method: drop_alignment
@@ -1322,6 +3101,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D5:
     sync:
       method: drop_alignment
@@ -1337,6 +3142,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D6:
     sync:
       method: drop_alignment
@@ -1352,6 +3183,95 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
+  D7:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 796
+      - 440
+      init_tip_pos:
+      - 942
+      - 699
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 796
+        - 440
+        tip_pos:
+        - 942
+        - 699
   D8:
     sync:
       method: drop_alignment
@@ -1367,6 +3287,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   D9:
     sync:
       method: drop_alignment
@@ -1382,6 +3328,95 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
+  E10:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 760
+      - 447
+      init_tip_pos:
+      - 936
+      - 738
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 760
+        - 447
+        tip_pos:
+        - 936
+        - 738
   E11:
     sync:
       method: drop_alignment
@@ -1412,6 +3447,95 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
+  E13:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 761
+      - 435
+      init_tip_pos:
+      - 935
+      - 731
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 761
+        - 435
+        tip_pos:
+        - 935
+        - 731
   E14:
     sync:
       method: multi_signature
@@ -1427,6 +3551,69 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+  E15:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 769
+      - 419
+      init_tip_pos:
+      - 940
+      - 717
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 769
+        - 419
+        tip_pos:
+        - 940
+        - 717
   E16:
     sync:
       method: drop_alignment
@@ -1442,7 +3629,14 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  E18:
+  E19:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
     sync:
       method: multi_signature
       drop_smooth_window: 5
@@ -1457,21 +3651,47 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  E2:
-    sync:
-      method: multi_signature
-      drop_smooth_window: 5
-      search_min: -30.0
-      search_max: 30.0
-      search_steps: 200
-      signature_force_weight: 0.7
-      signature_stroke_weight: 0.3
-      signature_smooth_window: 5
-      force_threshold: 0.1
-      stroke_threshold: 0.01
-      video_change_threshold_px: 3.0
-      baseline_frames: 5
-      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 739
+      - 453
+      init_tip_pos:
+      - 941
+      - 739
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 739
+        - 453
+        tip_pos:
+        - 941
+        - 739
   E22:
     sync:
       method: drop_alignment
@@ -1487,6 +3707,69 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+  E23:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 755
+      - 460
+      init_tip_pos:
+      - 948
+      - 736
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 755
+        - 460
+        tip_pos:
+        - 948
+        - 736
   E24:
     sync:
       method: drop_alignment
@@ -1502,7 +3785,14 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  E9:
+  E3:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
     sync:
       method: multi_signature
       drop_smooth_window: 5
@@ -1517,6 +3807,236 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 743
+      - 442
+      init_tip_pos:
+      - 914
+      - 717
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 743
+        - 442
+        tip_pos:
+        - 914
+        - 717
+  E6:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 778
+      - 435
+      init_tip_pos:
+      - 929
+      - 727
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 778
+        - 435
+        tip_pos:
+        - 929
+        - 727
+  E8:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 763
+      - 435
+      init_tip_pos:
+      - 933
+      - 723
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 763
+        - 435
+        tip_pos:
+        - 933
+        - 723
+  F1:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 715
+      - 469
+      init_tip_pos:
+      - 913
+      - 706
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 715
+        - 469
+        tip_pos:
+        - 913
+        - 706
   F10:
     sync:
       method: drop_alignment
@@ -1532,6 +4052,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   F11:
     sync:
       method: drop_alignment
@@ -1562,7 +4108,14 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  F14:
+  F13:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
     sync:
       method: multi_signature
       drop_smooth_window: 5
@@ -1577,6 +4130,173 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 714
+      - 433
+      init_tip_pos:
+      - 933
+      - 698
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 714
+        - 433
+        tip_pos:
+        - 933
+        - 698
+  F15:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 692
+      - 450
+      init_tip_pos:
+      - 922
+      - 701
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 692
+        - 450
+        tip_pos:
+        - 922
+        - 701
+  F16:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 699
+      - 437
+      init_tip_pos:
+      - 916
+      - 690
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 699
+        - 437
+        tip_pos:
+        - 916
+        - 690
   F17:
     sync:
       method: drop_alignment
@@ -1637,6 +4357,69 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+  F22:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 714
+      - 430
+      init_tip_pos:
+      - 923
+      - 713
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 714
+        - 430
+        tip_pos:
+        - 923
+        - 713
   F23:
     sync:
       method: drop_alignment
@@ -1652,6 +4435,132 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+  F24:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 687
+      - 414
+      init_tip_pos:
+      - 910
+      - 674
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 687
+        - 414
+        tip_pos:
+        - 910
+        - 674
+  F25:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 693
+      - 458
+      init_tip_pos:
+      - 907
+      - 702
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 693
+        - 458
+        tip_pos:
+        - 907
+        - 702
   F3:
     sync:
       method: drop_alignment
@@ -1667,6 +4576,69 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+  F4:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 720
+      - 463
+      init_tip_pos:
+      - 910
+      - 702
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 720
+        - 463
+        tip_pos:
+        - 910
+        - 702
   F5:
     sync:
       method: drop_alignment
@@ -1682,6 +4654,321 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+  F7:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 704
+      - 467
+      init_tip_pos:
+      - 909
+      - 741
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 704
+        - 467
+        tip_pos:
+        - 909
+        - 741
+  F8:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 686
+      - 464
+      init_tip_pos:
+      - 909
+      - 698
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 686
+        - 464
+        tip_pos:
+        - 909
+        - 698
+  F9:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 685
+      - 473
+      init_tip_pos:
+      - 928
+      - 725
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 685
+        - 473
+        tip_pos:
+        - 928
+        - 725
+  G10:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 744
+      - 471
+      init_tip_pos:
+      - 995
+      - 669
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 744
+        - 471
+        tip_pos:
+        - 995
+        - 669
+  G11:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 787
+      - 406
+      init_tip_pos:
+      - 989
+      - 661
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 787
+        - 406
+        tip_pos:
+        - 989
+        - 661
   G12:
     sync:
       method: multi_signature
@@ -1697,6 +4984,347 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
+  G13:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 763
+      - 479
+      init_tip_pos:
+      - 976
+      - 696
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 763
+        - 479
+        tip_pos:
+        - 976
+        - 696
+  G14:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 753
+      - 484
+      init_tip_pos:
+      - 979
+      - 734
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 753
+        - 484
+        tip_pos:
+        - 979
+        - 734
+  G15:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 747
+      - 452
+      init_tip_pos:
+      - 967
+      - 717
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 747
+        - 452
+        tip_pos:
+        - 967
+        - 717
+  G16:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 727
+      - 473
+      init_tip_pos:
+      - 990
+      - 682
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 727
+        - 473
+        tip_pos:
+        - 990
+        - 682
+  G17:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 764
+      - 448
+      init_tip_pos:
+      - 954
+      - 710
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 764
+        - 448
+        tip_pos:
+        - 954
+        - 710
   G18:
     sync:
       method: drop_alignment
@@ -1712,7 +5340,40 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  G19:
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
+  G2:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
     sync:
       method: multi_signature
       drop_smooth_window: 5
@@ -1727,6 +5388,110 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 719
+      - 408
+      init_tip_pos:
+      - 940
+      - 671
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 719
+        - 408
+        tip_pos:
+        - 940
+        - 671
+  G21:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 756
+      - 430
+      init_tip_pos:
+      - 966
+      - 682
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 756
+        - 430
+        tip_pos:
+        - 966
+        - 682
   G22:
     sync:
       method: multi_signature
@@ -1742,6 +5507,95 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
+  G23:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 752
+      - 436
+      init_tip_pos:
+      - 956
+      - 667
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 752
+        - 436
+        tip_pos:
+        - 956
+        - 667
   G24:
     sync:
       method: drop_alignment
@@ -1757,6 +5611,158 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
+  G25:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 753
+      - 451
+      init_tip_pos:
+      - 968
+      - 718
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 753
+        - 451
+        tip_pos:
+        - 968
+        - 718
+  G3:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 752
+      - 317
+      init_tip_pos:
+      - 908
+      - 663
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 752
+        - 317
+        tip_pos:
+        - 908
+        - 663
   G4:
     sync:
       method: drop_alignment
@@ -1772,6 +5778,158 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
+  G5:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 706
+      - 417
+      init_tip_pos:
+      - 926
+      - 656
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 706
+        - 417
+        tip_pos:
+        - 926
+        - 656
+  G6:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 708
+      - 372
+      init_tip_pos:
+      - 921
+      - 660
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 708
+        - 372
+        tip_pos:
+        - 921
+        - 660
   G7:
     sync:
       method: multi_signature
@@ -1787,7 +5945,40 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  H10:
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
+  G9:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
     sync:
       method: multi_signature
       drop_smooth_window: 5
@@ -1802,7 +5993,55 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  H14:
+    tracking:
+      init_shaft_pos:
+      - 771
+      - 470
+      init_tip_pos:
+      - 983
+      - 738
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 771
+        - 470
+        tip_pos:
+        - 983
+        - 738
+  H1:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
     sync:
       method: multi_signature
       drop_smooth_window: 5
@@ -1817,6 +6056,362 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 766
+      - 438
+      init_tip_pos:
+      - 930
+      - 705
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 766
+        - 438
+        tip_pos:
+        - 930
+        - 705
+  H11:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 770
+      - 416
+      init_tip_pos:
+      - 949
+      - 697
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 770
+        - 416
+        tip_pos:
+        - 949
+        - 697
+  H12:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 799
+      - 414
+      init_tip_pos:
+      - 971
+      - 715
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 799
+        - 414
+        tip_pos:
+        - 971
+        - 715
+  H13:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 777
+      - 431
+      init_tip_pos:
+      - 946
+      - 704
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 777
+        - 431
+        tip_pos:
+        - 946
+        - 704
+  H16:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 752
+      - 435
+      init_tip_pos:
+      - 955
+      - 705
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 752
+        - 435
+        tip_pos:
+        - 955
+        - 705
+  H17:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 759
+      - 430
+      init_tip_pos:
+      - 961
+      - 707
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 759
+        - 430
+        tip_pos:
+        - 961
+        - 707
   H18:
     sync:
       method: multi_signature
@@ -1847,6 +6442,158 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
+  H2:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 727
+      - 434
+      init_tip_pos:
+      - 930
+      - 692
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 727
+        - 434
+        tip_pos:
+        - 930
+        - 692
+  H20:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 771
+      - 404
+      init_tip_pos:
+      - 938
+      - 662
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 771
+        - 404
+        tip_pos:
+        - 938
+        - 662
   H21:
     sync:
       method: drop_alignment
@@ -1862,6 +6609,132 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+  H24:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 770
+      - 454
+      init_tip_pos:
+      - 977
+      - 714
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 770
+        - 454
+        tip_pos:
+        - 977
+        - 714
+  H25:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 744
+      - 441
+      init_tip_pos:
+      - 989
+      - 743
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 744
+        - 441
+        tip_pos:
+        - 989
+        - 743
   H3:
     sync:
       method: drop_alignment
@@ -1877,6 +6750,32 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
   H4:
     sync:
       method: drop_alignment
@@ -1892,6 +6791,284 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
+  H5:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 742
+      - 427
+      init_tip_pos:
+      - 965
+      - 704
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 742
+        - 427
+        tip_pos:
+        - 965
+        - 704
+  H6:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 815
+      - 430
+      init_tip_pos:
+      - 946
+      - 692
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 815
+        - 430
+        tip_pos:
+        - 946
+        - 692
+  H7:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 734
+      - 449
+      init_tip_pos:
+      - 944
+      - 700
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 734
+        - 449
+        tip_pos:
+        - 944
+        - 700
+  H8:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 739
+      - 452
+      init_tip_pos:
+      - 937
+      - 701
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 739
+        - 452
+        tip_pos:
+        - 937
+        - 701
   H9:
     sync:
       method: drop_alignment
@@ -1907,10 +7084,79 @@ samples:
       video_change_threshold_px: 3.0
       baseline_frames: 5
       min_consecutive: 3
-  E7:
-    status: manual_review
-    notes: tip tracking fails after opening; needs manual pipeline
+    analysis:
+      frame_skip: 10
+      fps: 30
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
     tracking:
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 150
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: 200
+      tip_max_area: 15000
+      tip_min_contour_area: 100
+      tip_morph_kernel_size: 5
+      tip_exclude_right_pixels: 400
+      tip_max_x_ratio: 0.65
+      hsv_lower: *id001
+      hsv_upper: *id002
+  A12:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: multi_signature
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
+    tracking:
+      init_shaft_pos:
+      - 751
+      - 433
+      init_tip_pos:
+      - 906
+      - 692
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
       hsv_lower:
       - 35
       - 100
@@ -1919,40 +7165,74 @@ samples:
       - 55
       - 255
       - 255
-      tip_hsv_lower:
-      - 44
-      - 24
-      - 158
-      tip_hsv_upper:
-      - 70
-      - 255
-      - 255
-      tip_roi:
-      - 880
-      - 620
-      - 980
-      - 740
-      tip_roi_mode: follow_prev
-      tip_roi_radius: 250
-      tip_min_area: 20
-      tip_min_contour_area: 10
-      validate_tip_edges: false
-  A12:
-    status: manual_review
-    notes: tip ROI workaround still unreliable; defer to manual pipeline
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 751
+        - 433
+        tip_pos:
+        - 906
+        - 692
+  A15:
+    analysis:
+      frame_skip: 10
+      fps: 30.0
+      pixels_per_mm: 12.103
+      calculate_delta_gape: true
+      use_datasheet_initial_gape: true
+      show_true_39mm: true
+    sync:
+      method: peak_alignment
+      drop_smooth_window: 5
+      search_min: -30.0
+      search_max: 30.0
+      search_steps: 200
+      signature_force_weight: 0.7
+      signature_stroke_weight: 0.3
+      signature_smooth_window: 5
+      force_threshold: 0.1
+      stroke_threshold: 0.01
+      video_change_threshold_px: 3.0
+      baseline_frames: 5
+      min_consecutive: 3
     tracking:
-      tip_roi:
-      - 700
-      - 580
-      - 1050
-      - 820
-      tip_roi_mode: follow_prev
-      tip_roi_radius: 250
-      tip_min_area: 20
-      tip_min_contour_area: 10
-  E4:
-    sync:
-      method: peak_alignment
-  G1:
-    sync:
-      method: peak_alignment
+      init_shaft_pos:
+      - 829
+      - 320
+      init_tip_pos:
+      - 889
+      - 640
+      exclude_right_pixels: 400
+      use_simple_tracking: false
+      min_area: 200
+      max_area: 15000
+      max_x_ratio: 0.65
+      search_radius: 70
+      validate_tip_edges: true
+      min_edge_separation: 15
+      min_contour_area: 100
+      morph_kernel_size: 5
+      tip_min_area: null
+      tip_max_area: null
+      tip_min_contour_area: null
+      tip_morph_kernel_size: null
+      tip_exclude_right_pixels: null
+      tip_max_x_ratio: null
+      tip_roi_mode: static
+      tip_roi_radius: null
+      hsv_lower:
+      - 35
+      - 100
+      - 50
+      hsv_upper:
+      - 55
+      - 255
+      - 255
+      reacquire_points:
+      - frame_number: 0
+        shaft_pos:
+        - 829
+        - 320
+        tip_pos:
+        - 889
+        - 640

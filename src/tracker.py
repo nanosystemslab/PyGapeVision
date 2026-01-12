@@ -726,8 +726,86 @@ class VideoAnalyzer:
             'shaft_y': [],
             'tip_x': [],
             'tip_y': [],
-            'distance_pixels': []
+            'distance_pixels': [],
+            'reacquire_points': []
         }
+
+    def _prompt_reacquire_points(
+        self,
+        frame: np.ndarray,
+        need_shaft: bool = True,
+        need_tip: bool = True,
+        existing_shaft: Optional[Tuple[int, int]] = None,
+        existing_tip: Optional[Tuple[int, int]] = None
+    ) -> Tuple[Optional[Tuple[int, int]], Optional[Tuple[int, int]], bool]:
+        window_name = "Reacquire Tracking"
+        required_labels: List[str] = []
+        if need_shaft:
+            required_labels.append("shaft")
+        if need_tip:
+            required_labels.append("tip")
+        points = {}
+        frame_copy = frame.copy()
+
+        def mouse_callback(event, x, y, flags, param):
+            if event == cv2.EVENT_LBUTTONDOWN and len(points) < len(required_labels):
+                label = required_labels[len(points)]
+                points[label] = (x, y)
+
+        cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+        cv2.resizeWindow(window_name, frame.shape[1], frame.shape[0])
+        cv2.setMouseCallback(window_name, mouse_callback)
+
+        stop_processing = False
+        while True:
+            display = frame_copy.copy()
+            if existing_shaft:
+                cv2.circle(display, existing_shaft, 8, (0, 0, 200), 2)
+                cv2.putText(display, "Shaft (detected)", (existing_shaft[0] + 10, existing_shaft[1] - 10),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 200), 2)
+            if existing_tip:
+                cv2.circle(display, existing_tip, 8, (200, 0, 0), 2)
+                cv2.putText(display, "Tip (detected)", (existing_tip[0] + 10, existing_tip[1] - 10),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (200, 0, 0), 2)
+
+            for label, point in points.items():
+                color = (0, 0, 255) if label == "shaft" else (255, 0, 0)
+                text = "Shaft" if label == "shaft" else "Tip"
+                cv2.circle(display, point, 8, color, 2)
+                cv2.putText(display, text, (point[0] + 10, point[1] - 10),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
+
+            if need_shaft and need_tip:
+                prompt_text = "Click SHAFT then TIP. Press any key to accept."
+            elif need_shaft:
+                prompt_text = "Click SHAFT. Press any key to accept."
+            else:
+                prompt_text = "Click TIP. Press any key to accept."
+            cv2.putText(display, prompt_text,
+                        (20, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+            cv2.putText(display, "Press r to reset, q to end video early.",
+                        (20, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+            cv2.imshow(window_name, display)
+            key = cv2.waitKey(20) & 0xFF
+            if key == ord('r'):
+                points = {}
+                continue
+            if key == ord('q'):
+                stop_processing = True
+                break
+            if len(points) >= len(required_labels) and key != 255:
+                break
+
+        cv2.destroyWindow(window_name)
+
+        if stop_processing:
+            return None, None, True
+        if len(points) < len(required_labels):
+            return None, None, False
+
+        shaft_pos = points.get("shaft", existing_shaft)
+        tip_pos = points.get("tip", existing_tip)
+        return shaft_pos, tip_pos, False
 
     def process_video(self, output_video_path: Optional[str] = None,
                      frame_skip: int = 1,
@@ -738,6 +816,12 @@ class VideoAnalyzer:
                      pixels_per_mm: Optional[float] = None,
                      init_shaft_pos: Optional[Tuple[int, int]] = None,
                      init_tip_pos: Optional[Tuple[int, int]] = None,
+                     interactive_init: bool = False,
+                     interactive_reacquire: bool = False,
+                     reacquire_miss_frames: int = 15,
+                     reacquire_max_retries: int = 5,
+                     reacquire_points: Optional[List[dict]] = None,
+                     tracking_override: Optional[dict] = None,
                      display_delta_mm: bool = False,
                      initial_gape_mm: Optional[float] = None,
                      show_true_39mm: bool = False) -> dict:
@@ -754,6 +838,12 @@ class VideoAnalyzer:
             pixels_per_mm: Calibration factor to display measurements in mm
             init_shaft_pos: Initial shaft position (x, y) for manual tracking initialization
             init_tip_pos: Initial tip position (x, y) for manual tracking initialization
+            interactive_init: Prompt for manual points on the first processed frame
+            interactive_reacquire: Prompt for manual points when tracking is lost
+            reacquire_miss_frames: Consecutive missed frames before prompting
+            reacquire_max_retries: Max number of manual reacquire prompts
+            reacquire_points: Predefined manual reacquire points to reuse
+            tracking_override: Tracking data to reuse for overlay rendering
 
         Returns:
             results: Dictionary containing tracking data
@@ -790,6 +880,37 @@ class VideoAnalyzer:
         prev_tip_pos = init_tip_pos
 
         baseline_px = None
+        consecutive_misses = 0
+        reacquire_attempts = 0
+        stop_processing = False
+
+        reacquire_map = {}
+        if reacquire_points:
+            for entry in reacquire_points:
+                frame_idx = entry.get('frame_number')
+                shaft_pos = entry.get('shaft_pos')
+                tip_pos = entry.get('tip_pos')
+                if frame_idx is None or shaft_pos is None or tip_pos is None:
+                    continue
+                reacquire_map[int(frame_idx)] = (tuple(shaft_pos), tuple(tip_pos))
+
+        override_map = {}
+        if tracking_override:
+            frame_numbers = tracking_override.get('frame_number', [])
+            shaft_x = tracking_override.get('shaft_x', [])
+            shaft_y = tracking_override.get('shaft_y', [])
+            tip_x = tracking_override.get('tip_x', [])
+            tip_y = tracking_override.get('tip_y', [])
+            distance_pixels = tracking_override.get('distance_pixels', [])
+            for idx, frame_idx in enumerate(frame_numbers):
+                if idx >= len(shaft_x) or idx >= len(shaft_y) or idx >= len(tip_x) or idx >= len(tip_y):
+                    continue
+                dist = distance_pixels[idx] if idx < len(distance_pixels) else None
+                override_map[int(frame_idx)] = (
+                    (int(shaft_x[idx]), int(shaft_y[idx])),
+                    (int(tip_x[idx]), int(tip_y[idx])),
+                    dist
+                )
 
         while True:
             ret, frame = cap.read()
@@ -801,87 +922,165 @@ class VideoAnalyzer:
                 frame_number += 1
                 continue
 
-            # Find green regions for shaft
-            mask, contours_info = self.tracker.find_green_regions(frame)
-
-            # Optional separate detection for tip
-            tip_contours_info = None
-            tip_roi = self.tracker.tip_roi
-            roi_mode = (self.tracker.tip_roi_mode or "static").lower()
-            if roi_mode == "initial_only":
-                if prev_tip_pos is not None:
-                    tip_roi = None
-            elif roi_mode == "follow_prev":
-                if prev_tip_pos is not None:
-                    radius = self.tracker.tip_roi_radius or self.tracker.search_radius
-                    tip_roi = (
-                        int(prev_tip_pos[0] - radius),
-                        int(prev_tip_pos[1] - radius),
-                        int(prev_tip_pos[0] + radius),
-                        int(prev_tip_pos[1] + radius),
-                    )
-            if self.tracker.tip_hsv_lower is not None or self.tracker.tip_hsv_upper is not None or tip_roi is not None:
-                _, tip_contours_info = self.tracker.find_green_regions(
+            if interactive_init and processed_frames == 0 and (init_shaft_pos is None or init_tip_pos is None):
+                print("Manual initialization requested.")
+                shaft_manual, tip_manual, stop_processing = self._prompt_reacquire_points(
                     frame,
-                    hsv_lower=self.tracker.tip_hsv_lower,
-                    hsv_upper=self.tracker.tip_hsv_upper,
-                    exclude_right_pixels=self.tracker.tip_exclude_right_pixels,
-                    min_contour_area=self.tracker.tip_min_contour_area,
-                    morph_kernel_size=self.tracker.tip_morph_kernel_size,
-                    roi=tip_roi
+                    need_shaft=init_shaft_pos is None,
+                    need_tip=init_tip_pos is None,
+                    existing_shaft=init_shaft_pos,
+                    existing_tip=init_tip_pos
+                )
+                if stop_processing:
+                    break
+                if shaft_manual and tip_manual:
+                    init_shaft_pos = shaft_manual
+                    init_tip_pos = tip_manual
+                    prev_shaft_pos = shaft_manual
+                    prev_tip_pos = tip_manual
+                    self.results['reacquire_points'].append({
+                        'frame_number': frame_number,
+                        'shaft_pos': list(shaft_manual),
+                        'tip_pos': list(tip_manual)
+                    })
+
+            if frame_number in reacquire_map:
+                prev_shaft_pos, prev_tip_pos = reacquire_map[frame_number]
+                consecutive_misses = 0
+
+            if override_map:
+                override = override_map.get(frame_number)
+                if override:
+                    shaft_pos, tip_pos, override_distance = override
+                    shaft_info = {'centroid': shaft_pos}
+                    tip_info = {'centroid': tip_pos}
+                    distance = float(override_distance) if override_distance is not None else 0.0
+                    prev_shaft_pos = shaft_pos
+                    prev_tip_pos = tip_pos
+                else:
+                    shaft_info = None
+                    tip_info = None
+                    distance = 0.0
+            if not override_map:
+                # Find green regions for shaft
+                mask, contours_info = self.tracker.find_green_regions(frame)
+
+                # Optional separate detection for tip
+                tip_contours_info = None
+                tip_roi = self.tracker.tip_roi
+                roi_mode = (self.tracker.tip_roi_mode or "static").lower()
+                if roi_mode == "initial_only":
+                    if prev_tip_pos is not None:
+                        tip_roi = None
+                elif roi_mode == "follow_prev":
+                    if prev_tip_pos is not None:
+                        radius = self.tracker.tip_roi_radius or self.tracker.search_radius
+                        tip_roi = (
+                            int(prev_tip_pos[0] - radius),
+                            int(prev_tip_pos[1] - radius),
+                            int(prev_tip_pos[0] + radius),
+                            int(prev_tip_pos[1] + radius),
+                        )
+                if self.tracker.tip_hsv_lower is not None or self.tracker.tip_hsv_upper is not None or tip_roi is not None:
+                    _, tip_contours_info = self.tracker.find_green_regions(
+                        frame,
+                        hsv_lower=self.tracker.tip_hsv_lower,
+                        hsv_upper=self.tracker.tip_hsv_upper,
+                        exclude_right_pixels=self.tracker.tip_exclude_right_pixels,
+                        min_contour_area=self.tracker.tip_min_contour_area,
+                        morph_kernel_size=self.tracker.tip_morph_kernel_size,
+                        roi=tip_roi
+                    )
+
+                # Identify shaft and tip using temporal tracking
+                shaft_info, tip_info = self.tracker.identify_shaft_and_tip(
+                    contours_info,
+                    frame_width=width,
+                    frame_height=height,
+                    prev_shaft=prev_shaft_pos,
+                    prev_tip=prev_tip_pos,
+                    frame=frame,
+                    search_radius=self.tracker.search_radius,
+                    tip_contours_info=tip_contours_info
                 )
 
-            # Identify shaft and tip using temporal tracking
-            shaft_info, tip_info = self.tracker.identify_shaft_and_tip(
-                contours_info,
-                frame_width=width,
-                frame_height=height,
-                prev_shaft=prev_shaft_pos,
-                prev_tip=prev_tip_pos,
-                frame=frame,
-                search_radius=self.tracker.search_radius,
-                tip_contours_info=tip_contours_info
-            )
+                if (interactive_init or interactive_reacquire) and prev_shaft_pos and shaft_info:
+                    dist = self.tracker.calculate_distance(prev_shaft_pos, shaft_info['centroid'])
+                    if dist > self.tracker.search_radius:
+                        shaft_info = None
+                if (interactive_init or interactive_reacquire) and prev_tip_pos and tip_info:
+                    dist = self.tracker.calculate_distance(prev_tip_pos, tip_info['centroid'])
+                    if dist > self.tracker.search_radius:
+                        tip_info = None
 
-            # Fallback: If manual positions provided but detection failed, search for ANY green near manual positions
-            if (shaft_info is None or tip_info is None) and (init_shaft_pos is not None and init_tip_pos is not None):
-                # Try to find the closest green region to each manual position
-                large_search_radius = 300  # Much larger search radius for manual mode
+                # Fallback: If manual positions provided but detection failed, search for ANY green near manual positions
+                if (shaft_info is None or tip_info is None) and (init_shaft_pos is not None and init_tip_pos is not None):
+                    # Try to find the closest green region to each manual position
+                    large_search_radius = 300  # Much larger search radius for manual mode
 
-                if shaft_info is None and prev_shaft_pos is not None and len(contours_info) > 0:
-                    # Find closest contour to shaft position
-                    closest_shaft = None
-                    min_dist = float('inf')
-                    for c in contours_info:
-                        cx, cy = c['centroid']
-                        dist = ((cx - prev_shaft_pos[0])**2 + (cy - prev_shaft_pos[1])**2)**0.5
-                        if dist < min_dist and dist < large_search_radius:
-                            min_dist = dist
-                            closest_shaft = c
-                    if closest_shaft:
-                        shaft_info = closest_shaft
+                    if shaft_info is None and prev_shaft_pos is not None and len(contours_info) > 0:
+                        # Find closest contour to shaft position
+                        closest_shaft = None
+                        min_dist = float('inf')
+                        for c in contours_info:
+                            cx, cy = c['centroid']
+                            dist = ((cx - prev_shaft_pos[0])**2 + (cy - prev_shaft_pos[1])**2)**0.5
+                            if dist < min_dist and dist < large_search_radius:
+                                min_dist = dist
+                                closest_shaft = c
+                        if closest_shaft:
+                            shaft_info = closest_shaft
 
-                tip_candidates = tip_contours_info if tip_contours_info is not None else contours_info
-                if tip_info is None and prev_tip_pos is not None and len(tip_candidates) > 0:
-                    # Find closest contour to tip position
-                    closest_tip = None
-                    min_dist = float('inf')
-                    for c in tip_candidates:
-                        cx, cy = c['centroid']
-                        # Make sure it's not the same as shaft
-                        if shaft_info and c == shaft_info:
-                            continue
-                        dist = ((cx - prev_tip_pos[0])**2 + (cy - prev_tip_pos[1])**2)**0.5
-                        if dist < min_dist and dist < large_search_radius:
-                            min_dist = dist
-                            closest_tip = c
-                    if closest_tip:
-                        tip_info = closest_tip
+                    tip_candidates = tip_contours_info if tip_contours_info is not None else contours_info
+                    if tip_info is None and prev_tip_pos is not None and len(tip_candidates) > 0:
+                        # Find closest contour to tip position
+                        closest_tip = None
+                        min_dist = float('inf')
+                        for c in tip_candidates:
+                            cx, cy = c['centroid']
+                            # Make sure it's not the same as shaft
+                            if shaft_info and c == shaft_info:
+                                continue
+                            dist = ((cx - prev_tip_pos[0])**2 + (cy - prev_tip_pos[1])**2)**0.5
+                            if dist < min_dist and dist < large_search_radius:
+                                min_dist = dist
+                                closest_tip = c
+                        if closest_tip:
+                            tip_info = closest_tip
 
             # Calculate distance
-            distance = 0.0
             delta_mm = None
             absolute_mm = None
+            if not override_map:
+                distance = 0.0
+                if not (shaft_info and tip_info):
+                    consecutive_misses += 1
+
+                    if (interactive_reacquire and consecutive_misses >= reacquire_miss_frames and
+                            reacquire_attempts < reacquire_max_retries):
+                        print("Tracking lost. Manual reacquire requested.")
+                        reacquire_attempts += 1
+                        shaft_manual, tip_manual, stop_processing = self._prompt_reacquire_points(
+                            frame,
+                            need_shaft=shaft_info is None,
+                            need_tip=tip_info is None,
+                            existing_shaft=shaft_info['centroid'] if shaft_info else prev_shaft_pos,
+                            existing_tip=tip_info['centroid'] if tip_info else prev_tip_pos
+                        )
+                        if stop_processing:
+                            break
+                        if shaft_manual and tip_manual:
+                            prev_shaft_pos = shaft_manual
+                            prev_tip_pos = tip_manual
+                            self.results['reacquire_points'].append({
+                                'frame_number': frame_number,
+                                'shaft_pos': list(shaft_manual),
+                                'tip_pos': list(tip_manual)
+                            })
+                            shaft_info = {'centroid': shaft_manual}
+                            tip_info = {'centroid': tip_manual}
+                            consecutive_misses = 0
+
             if shaft_info and tip_info:
                 distance = self.tracker.calculate_distance(
                     shaft_info['centroid'],
@@ -907,6 +1106,7 @@ class VideoAnalyzer:
                 # Update previous positions for next frame
                 prev_shaft_pos = shaft_info['centroid']
                 prev_tip_pos = tip_info['centroid']
+                consecutive_misses = 0
 
             # Rotate FIRST if requested (before adding any overlays/text)
             frame_to_annotate = frame

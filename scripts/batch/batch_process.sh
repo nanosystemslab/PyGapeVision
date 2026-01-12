@@ -36,9 +36,8 @@ if [ -f "$SYNC_CONFIG" ] && [ -z "$CONFIG_YAML_ARG" ]; then
     SYNC_CONFIG_ARG="--sync-config $SYNC_CONFIG"
 fi
 
-# Speed optimization: Skip video output for faster processing
-# Comment out this line to generate annotated videos (much slower)
-SKIP_VIDEO="--no-video"
+# Generate annotated videos
+SKIP_VIDEO=""
 
 # Create output directory
 mkdir -p "$OUTPUT_BASE"
@@ -95,7 +94,7 @@ for batch_dir in "$VIDEO_BASE"/*; do
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
     # Build command
-    cmd="python scripts/analyze_synced.py \"$video_file\" \"$csv_file\" \
+    cmd="poetry run python scripts/analyze_synced.py \"$video_file\" \"$csv_file\" \
         --frame-skip $FRAME_SKIP \
         --fps $FPS \
         --output-dir \"$output_dir\" \

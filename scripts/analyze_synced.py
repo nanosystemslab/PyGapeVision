@@ -12,6 +12,7 @@ import json
 import csv
 import yaml
 from pathlib import Path
+from typing import Tuple
 
 # Add project root to Python path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -97,12 +98,24 @@ def _format_bbox(value) -> str:
         return ",".join(str(int(v)) for v in value)
     return str(value)
 
+def _parse_int_list(value, count: int) -> list[int] | None:
+    if value is None:
+        return None
+    if isinstance(value, (list, tuple)) and len(value) == count:
+        return [int(v) for v in value]
+    if isinstance(value, str):
+        parts = value.split(",")
+        if len(parts) == count:
+            return [int(p.strip()) for p in parts]
+    return None
+
 
 def apply_config_overrides(args, override_block: dict) -> None:
     if not override_block:
         return
 
     sync = override_block.get("sync", {})
+    analysis = override_block.get("analysis", {})
     tracking = override_block.get("tracking", {})
 
     sync_map = {
@@ -142,9 +155,24 @@ def apply_config_overrides(args, override_block: dict) -> None:
         "tip_roi_radius": "tip_roi_radius",
     }
 
+    analysis_map = {
+        "frame_skip": "frame_skip",
+        "fps": "fps",
+        "pixels_per_mm": "pixels_per_mm",
+        "calculate_delta_gape": "calculate_delta_gape",
+        "use_datasheet_initial_gape": "use_datasheet_initial_gape",
+        "show_true_39mm": "show_true_39mm",
+        "initial_gape": "initial_gape",
+        "time_offset": "time_offset",
+    }
+
     for key, attr in sync_map.items():
         if key in sync:
             setattr(args, attr, sync[key])
+
+    for key, attr in analysis_map.items():
+        if key in analysis:
+            setattr(args, attr, analysis[key])
 
     if "hsv_lower" in tracking:
         args.hsv_lower = _format_hsv(tracking["hsv_lower"])
@@ -164,10 +192,112 @@ def apply_config_overrides(args, override_block: dict) -> None:
         args.tip_roi_mode = tracking["tip_roi_mode"]
     if "tip_roi_radius" in tracking:
         args.tip_roi_radius = tracking["tip_roi_radius"]
+    if "reacquire_points" in tracking:
+        args.reacquire_points = tracking["reacquire_points"]
 
     for key, attr in tracking_map.items():
         if key in tracking:
             setattr(args, attr, tracking[key])
+
+
+def save_tracking_to_config(config_path: Path, sample_name: str,
+                            init_shaft_pos: Tuple[int, int],
+                            init_tip_pos: Tuple[int, int],
+                            reacquire_points: list[dict],
+                            args: argparse.Namespace) -> None:
+    config_data = load_processing_config(config_path)
+    if not config_data:
+        config_data = {}
+    samples = config_data.setdefault("samples", {})
+    sample_block = samples.setdefault(sample_name, {})
+    analysis = sample_block.setdefault("analysis", {})
+    sync = sample_block.setdefault("sync", {})
+    tracking = sample_block.setdefault("tracking", {})
+
+    analysis.update({
+        "frame_skip": args.frame_skip,
+        "fps": args.fps,
+        "pixels_per_mm": args.pixels_per_mm,
+        "calculate_delta_gape": args.calculate_delta_gape,
+        "use_datasheet_initial_gape": args.use_datasheet_initial_gape,
+        "show_true_39mm": args.show_true_39mm,
+    })
+    if args.initial_gape is not None:
+        analysis["initial_gape"] = args.initial_gape
+    if args.time_offset is not None:
+        analysis["time_offset"] = args.time_offset
+
+    sync.update({
+        "method": args.sync_method,
+        "drop_smooth_window": args.drop_smooth_window,
+        "search_min": args.sync_search_min,
+        "search_max": args.sync_search_max,
+        "search_steps": args.sync_search_steps,
+        "signature_force_weight": args.signature_force_weight,
+        "signature_stroke_weight": args.signature_stroke_weight,
+        "signature_smooth_window": args.signature_smooth_window,
+        "force_threshold": args.force_threshold,
+        "stroke_threshold": args.stroke_threshold,
+        "video_change_threshold_px": args.video_change_threshold_px,
+        "baseline_frames": args.baseline_frames,
+        "min_consecutive": args.min_consecutive,
+    })
+
+    tracking["init_shaft_pos"] = [int(init_shaft_pos[0]), int(init_shaft_pos[1])]
+    tracking["init_tip_pos"] = [int(init_tip_pos[0]), int(init_tip_pos[1])]
+    tracking["exclude_right_pixels"] = args.exclude_right_pixels
+    tracking["use_simple_tracking"] = args.use_simple_tracking
+    tracking["min_area"] = args.min_area
+    tracking["max_area"] = args.max_area
+    tracking["max_x_ratio"] = args.max_x_ratio
+    tracking["search_radius"] = args.search_radius
+    tracking["validate_tip_edges"] = args.validate_tip_edges
+    tracking["min_edge_separation"] = args.min_edge_separation
+    tracking["min_contour_area"] = args.min_contour_area
+    tracking["morph_kernel_size"] = args.morph_kernel_size
+    tracking["tip_min_area"] = args.tip_min_area
+    tracking["tip_max_area"] = args.tip_max_area
+    tracking["tip_min_contour_area"] = args.tip_min_contour_area
+    tracking["tip_morph_kernel_size"] = args.tip_morph_kernel_size
+    tracking["tip_exclude_right_pixels"] = args.tip_exclude_right_pixels
+    tracking["tip_max_x_ratio"] = args.tip_max_x_ratio
+    tracking["tip_roi_mode"] = args.tip_roi_mode
+    tracking["tip_roi_radius"] = args.tip_roi_radius
+
+    hsv_lower = _parse_int_list(args.hsv_lower, 3)
+    hsv_upper = _parse_int_list(args.hsv_upper, 3)
+    if hsv_lower:
+        tracking["hsv_lower"] = hsv_lower
+    if hsv_upper:
+        tracking["hsv_upper"] = hsv_upper
+    if args.tip_hsv_lower:
+        tip_lower = _parse_int_list(args.tip_hsv_lower, 3)
+        if tip_lower:
+            tracking["tip_hsv_lower"] = tip_lower
+    if args.tip_hsv_upper:
+        tip_upper = _parse_int_list(args.tip_hsv_upper, 3)
+        if tip_upper:
+            tracking["tip_hsv_upper"] = tip_upper
+    if args.tip_roi:
+        tip_roi = _parse_int_list(args.tip_roi, 4)
+        if tip_roi:
+            tracking["tip_roi"] = tip_roi
+
+    if reacquire_points:
+        tracking["reacquire_points"] = [
+            {
+                "frame_number": int(point["frame_number"]),
+                "shaft_pos": [int(point["shaft_pos"][0]), int(point["shaft_pos"][1])],
+                "tip_pos": [int(point["tip_pos"][0]), int(point["tip_pos"][1])],
+            }
+            for point in reacquire_points
+            if point.get("frame_number") is not None
+            and point.get("shaft_pos")
+            and point.get("tip_pos")
+        ]
+    with config_path.open("w") as f:
+        yaml.safe_dump(config_data, f, sort_keys=False)
+    print(f"Saved tracking init points to config: {config_path} ({sample_name})")
 
 
 def main():
@@ -326,6 +456,38 @@ def main():
         type=str,
         default=None,
         help='Initial tip position as "x,y" (e.g., "902,707") for manual tracking initialization'
+    )
+    parser.add_argument(
+        '--interactive-init',
+        action='store_true',
+        help='Prompt for manual points on the first processed frame'
+    )
+    parser.add_argument(
+        '--interactive-reacquire',
+        action='store_true',
+        help='Prompt for manual points when tracking is lost'
+    )
+    parser.add_argument(
+        '--no-interactive',
+        action='store_true',
+        help='Disable all interactive prompts (use config points only)'
+    )
+    parser.add_argument(
+        '--save-tracking-to-config',
+        action='store_true',
+        help='Save initial tracking points to the YAML config (requires --config)'
+    )
+    parser.add_argument(
+        '--reacquire-miss-frames',
+        type=int,
+        default=15,
+        help='Consecutive missed frames before prompting (default: 15)'
+    )
+    parser.add_argument(
+        '--reacquire-max-retries',
+        type=int,
+        default=5,
+        help='Maximum manual reacquire prompts per video (default: 5)'
     )
     parser.add_argument(
         '--hsv-lower',
@@ -489,6 +651,7 @@ def main():
     )
 
     args = parser.parse_args()
+    args.reacquire_points = None
 
     # Validate inputs
     video_path = Path(args.video_path)
@@ -538,6 +701,10 @@ def main():
             apply_sync_overrides(args, override_row)
             applied_override = True
             print(f"Applied sync overrides from {config_path} for sample {video_path.stem}")
+
+    if args.no_interactive:
+        args.interactive_init = False
+        args.interactive_reacquire = False
 
     # Parse initial positions if provided
     init_shaft_pos = None
@@ -719,7 +886,12 @@ def main():
         frame_skip=args.frame_skip,
         fps_override=args.fps,
         init_shaft_pos=init_shaft_pos,
-        init_tip_pos=init_tip_pos
+        init_tip_pos=init_tip_pos,
+        interactive_init=args.interactive_init,
+        interactive_reacquire=args.interactive_reacquire,
+        reacquire_miss_frames=args.reacquire_miss_frames,
+        reacquire_max_retries=args.reacquire_max_retries,
+        reacquire_points=args.reacquire_points
     )
 
     # Check if tracking succeeded - retry with simple method if it failed
@@ -762,7 +934,12 @@ def main():
             frame_skip=args.frame_skip,
             fps_override=args.fps,
             init_shaft_pos=None,  # Don't use manual init with simple tracking
-            init_tip_pos=None
+            init_tip_pos=None,
+            interactive_init=args.interactive_init,
+            interactive_reacquire=args.interactive_reacquire,
+            reacquire_miss_frames=args.reacquire_miss_frames,
+            reacquire_max_retries=args.reacquire_max_retries,
+            reacquire_points=args.reacquire_points
         )
 
         frames_tracked_retry = results_retry.get('frames_tracked', 0)
@@ -871,6 +1048,10 @@ def main():
             pixels_per_mm=args.pixels_per_mm,
             init_shaft_pos=shaft_init,
             init_tip_pos=tip_init,
+            interactive_init=False,
+            interactive_reacquire=False,
+            reacquire_points=results.get('reacquire_points'),
+            tracking_override=results,
             display_delta_mm=args.calculate_delta_gape,
             initial_gape_mm=initial_gape_mm if args.show_true_39mm else None,
             show_true_39mm=args.show_true_39mm
@@ -879,6 +1060,28 @@ def main():
 
     # Step 4: Generate outputs
     print("\n[4/4] Generating outputs...")
+
+    if args.save_tracking_to_config:
+        if not args.config:
+            print("Warning: --save-tracking-to-config requires --config")
+        else:
+            saved_shaft = init_shaft_pos
+            saved_tip = init_tip_pos
+            if args.interactive_init and results.get("reacquire_points"):
+                first_point = results["reacquire_points"][0]
+                saved_shaft = tuple(first_point.get("shaft_pos", [])) or saved_shaft
+                saved_tip = tuple(first_point.get("tip_pos", [])) or saved_tip
+            if saved_shaft and saved_tip:
+                save_tracking_to_config(
+                    Path(args.config),
+                    video_path.stem,
+                    saved_shaft,
+                    saved_tip,
+                    results.get("reacquire_points", []),
+                    args
+                )
+            else:
+                print("Warning: No initial tracking points available to save")
 
     # Save synchronized data
     output_csv_path = output_dir / f"{video_name}_synchronized.csv"
